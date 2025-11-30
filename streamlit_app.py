@@ -28,8 +28,7 @@ METADATA_PATH = IMAGES_PRE_PATH / "metadata.json"
 
 # Import inference functions
 sys.path.insert(0, str(Path(__file__).parent))
-from inference import process_image_batch, load_metadata
-
+from inference import load_metadata, process_image_batch
 
 # ============================================================================
 # HELPER FUNCTIONS - All defined at top before main code
@@ -159,7 +158,7 @@ def create_map(location, zoom=12, show_geojson=True, label_filter=None, use_dete
         else:
             # Load from points.geojson (pre-loaded mode)
             geojson_data = load_geojson()
-        
+
         add_geojson_markers(m, geojson_data, label_filter)
 
     return m
@@ -208,15 +207,15 @@ def download_mapillary_images(lat, lon, radius_km, output_dir="mapillary_downloa
 
         # Run with real-time progress output (unbuffered)
         env = os.environ.copy()
-        env['PYTHONUNBUFFERED'] = '1'
-        
+        env["PYTHONUNBUFFERED"] = "1"
+
         process = subprocess.Popen(
-            cmd, 
-            stdout=subprocess.PIPE, 
-            stderr=subprocess.PIPE, 
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
             text=True,
             bufsize=1,  # Line buffered
-            env=env
+            env=env,
         )
 
         fetch_count = 0
@@ -230,7 +229,7 @@ def download_mapillary_images(lat, lon, radius_km, output_dir="mapillary_downloa
                     break
 
                 line = line.strip()
-                
+
                 # Debug: log all output
                 print(f"[DEBUG] {line}", file=sys.stderr)
 
@@ -270,21 +269,22 @@ def download_mapillary_images(lat, lon, radius_km, output_dir="mapillary_downloa
         # Find the actual created directory (with timestamp)
         parent_dir = IMAGES_PRE_PATH.parent
         temp_dirs = list(parent_dir.glob("pre_temp_*"))
-        
+
         if not temp_dirs:
             st.error("Download completed but output directory not found")
             return None
-        
+
         # Use the most recent one
         actual_download_dir = sorted(temp_dirs)[-1]
-        
+
         # Move files from temp directory to pre directory
         for f in actual_download_dir.glob("*"):
             if f.is_file():
                 f.rename(IMAGES_PRE_PATH / f.name)
-        
+
         # Clean up temp directory
         import shutil
+
         shutil.rmtree(actual_download_dir, ignore_errors=True)
 
         progress_bar.progress(1.0)
@@ -433,7 +433,7 @@ with st.sidebar:
             st.session_state.label_filter = None
 
     st.markdown("---")
-    
+
     st.markdown("### 📖 How to Use")
     if marker_mode == "Mapillary API":
         st.markdown("""
@@ -456,7 +456,11 @@ st.markdown("### 🔍 Search City")
 with st.form("search_form"):
     col1, col2 = st.columns([2, 1])
     with col1:
-        city = st.text_input("Enter city name", placeholder="e.g., Paris, Tokyo, New York", label_visibility="collapsed")
+        city = st.text_input(
+            "Enter city name",
+            placeholder="e.g., Paris, Tokyo, New York",
+            label_visibility="collapsed",
+        )
     with col2:
         search_button = st.form_submit_button("🔍 Search", use_container_width=True)
 
@@ -489,17 +493,18 @@ mode_indicator = (
 )
 st.subheader(f"Map: {st.session_state.city_name} | {mode_indicator}")
 
-# Show download button at the top for Mapillary mode if location is clicked
-if st.session_state.marker_mode == "Mapillary API":
-    # We'll populate this after map click data is available
-    download_button_placeholder = st.empty()
-
 # Determine if we should show detections (Mapillary mode with processed results)
-use_detections = st.session_state.marker_mode == "Mapillary API" and st.session_state.get("mapillary_processed", False)
+use_detections = st.session_state.marker_mode == "Mapillary API" and st.session_state.get(
+    "mapillary_processed", False
+)
 
 # Create map with or without GeoJSON markers based on mode
 show_geojson = st.session_state.marker_mode == "Local GeoJSON" or use_detections
-label_filter = st.session_state.get("label_filter", None) if st.session_state.marker_mode == "Local GeoJSON" else None
+label_filter = (
+    st.session_state.get("label_filter", None)
+    if st.session_state.marker_mode == "Local GeoJSON"
+    else None
+)
 map_obj = create_map(
     st.session_state.map_location, st.session_state.zoom, show_geojson, label_filter, use_detections
 )
@@ -507,7 +512,7 @@ map_obj = create_map(
 # Display map and capture clicks
 map_data = st_folium(map_obj, width=None, height=600, returned_objects=["last_clicked"])
 
-# Handle map clicks (Mapillary mode) - show download button ABOVE map
+# Handle map clicks (Mapillary mode) - show modal dialog
 if st.session_state.marker_mode == "Mapillary API":
     if map_data and map_data.get("last_clicked"):
         clicked_lat = map_data["last_clicked"]["lat"]
@@ -516,40 +521,68 @@ if st.session_state.marker_mode == "Mapillary API":
         # Store clicked location in session state
         st.session_state.clicked_lat = clicked_lat
         st.session_state.clicked_lon = clicked_lon
+        st.session_state.show_download_modal = True
 
-        # Fill the placeholder with download button at the top
-        with download_button_placeholder.container():
-            col1, col2, col3 = st.columns([1, 1, 1])
-            with col2:
-                if st.button("⬇️ Download & Process", use_container_width=True, key="download_process"):
-                    with st.spinner("Downloading images from Mapillary..."):
-                        download_result = download_mapillary_images(
-                            clicked_lat, clicked_lon, search_radius_km
-                        )
+# Show modal dialog when location is clicked
+if st.session_state.marker_mode == "Mapillary API" and st.session_state.get(
+    "show_download_modal", False
+):
 
-                        if download_result:
-                            st.success(f"✅ Images downloaded to {download_result}")
+    @st.dialog("📍 Download Mapillary Images")
+    def download_modal():
+        clicked_lat = st.session_state.get("clicked_lat")
+        clicked_lon = st.session_state.get("clicked_lon")
 
-                            # Run inference
-                            with st.spinner("Running inference..."):
-                                results = run_inference_on_images(confidence_threshold)
-                                if results:
-                                    st.session_state.inference_complete = True
-                                    st.session_state.mapillary_processed = True  # Flag for map refresh
-                                    st.success("✅ Inference complete!")
+        st.write(f"**Location:** {clicked_lat:.6f}, {clicked_lon:.6f}")
+        st.write(f"**Radius:** {search_radius_km} km")
+        st.write(f"**Confidence threshold:** {confidence_threshold:.0%}")
 
-                                    # Show results
-                                    successful = sum(
-                                        1
-                                        for r in results
-                                        if "boxes" in r and len(r["boxes"]) > 0
-                                    )
-                                    st.info(
-                                        f"Processed {len(results)} images, {successful} with detections"
-                                    )
-                                    
-                                    # Force rerun to show updated map with detections
-                                    st.rerun()
+        st.markdown("---")
+
+        col1, col2 = st.columns(2)
+        with col1:
+            download_button = st.button(
+                "⬇️ Download & Process", use_container_width=True, type="primary"
+            )
+
+        with col2:
+            cancel_button = st.button("❌ Cancel", use_container_width=True)
+
+        # Handle button actions outside columns so progress bars span full width
+        if download_button:
+            with st.spinner("Downloading images from Mapillary..."):
+                download_result = download_mapillary_images(
+                    clicked_lat, clicked_lon, search_radius_km
+                )
+
+                if download_result:
+                    st.success(f"✅ Images downloaded to {download_result}")
+
+                    # Run inference
+                    with st.spinner("Running inference..."):
+                        results = run_inference_on_images(confidence_threshold)
+                        if results:
+                            st.session_state.inference_complete = True
+                            st.session_state.mapillary_processed = True
+                            st.success("✅ Inference complete!")
+
+                            # Show results
+                            successful = sum(
+                                1 for r in results if "boxes" in r and len(r["boxes"]) > 0
+                            )
+                            st.info(
+                                f"Processed {len(results)} images, {successful} with detections"
+                            )
+
+                            # Close modal and force rerun
+                            st.session_state.show_download_modal = False
+                            st.rerun()
+
+        if cancel_button:
+            st.session_state.show_download_modal = False
+            st.rerun()
+
+    download_modal()
 
 elif st.session_state.marker_mode == "Local GeoJSON":
     st.markdown("---")
@@ -591,11 +624,11 @@ if st.session_state.inference_complete:
                 "Labels Found",
                 len(summary.get("unique_labels", [])),
             )
-            
+
             # Detailed breakdown by label with colors
             st.markdown("### Detection Breakdown by Type")
             label_stats = summary.get("label_stats", {})
-            
+
             for label_id, label_name, label_emoji, label_color in [
                 (1, "Crack", "🔴", "#e74c3c"),
                 (2, "Manhole", "🔵", "#3498db"),
