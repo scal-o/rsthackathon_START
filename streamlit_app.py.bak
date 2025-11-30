@@ -1,7 +1,5 @@
-import base64
 import json
 import os
-import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -31,11 +29,6 @@ sys.path.insert(0, str(Path(__file__).parent))
 from inference import process_image_batch, load_metadata
 
 
-# ============================================================================
-# HELPER FUNCTIONS - All defined at top before main code
-# ============================================================================
-
-
 @st.cache_data
 def load_geojson():
     """Load GeoJSON data from file."""
@@ -45,10 +38,155 @@ def load_geojson():
     return None
 
 
+def get_mapillary_image(lat, lon, radius=50):
+    """
+    Get the closest Mapillary image near the given coordinates.
+
+    Args:
+        lat: Latitude
+        lon: Longitude
+        radius: Search radius in meters (default 50)
+
+    Returns:
+        Dictionary with image info or None
+    """
+    try:
+        params = {
+            "access_token": MAPILLARY_API_KEY,
+            "fields": "id,thumb_1024_url,captured_at,compass_angle",
+            "bbox": f"{lon - 0.001},{lat - 0.001},{lon + 0.001},{lat + 0.001}",
+            "limit": 1,
+        }
+
+        response = requests.get(MAPILLARY_API_URL, params=params, timeout=5)
+
+        if response.status_code == 200:
+            data = response.json()
+            if data.get("data") and len(data["data"]) > 0:
+                return data["data"][0]
+        return None
+    except Exception as e:
+        st.error(f"Mapillary API error: {str(e)}")
+        return None
+
+
+def download_mapillary_images(lat, lon, radius_km, output_dir="mapillary_downloads"):
+    """
+    Download Mapillary images for the specified area.
+
+    Args:
+        lat: Latitude
+        lon: Longitude
+        radius_km: Radius in kilometers
+        output_dir: Output directory for images
+
+    Returns:
+        Path to downloaded images
+    """
+    try:
+        # Clear previous images
+        if IMAGES_PRE_PATH.exists():
+            for f in IMAGES_PRE_PATH.glob("*"):
+                if f.is_file():
+                    f.unlink()
+        else:
+            IMAGES_PRE_PATH.mkdir(parents=True, exist_ok=True)
+
+        # Run download command
+        cmd = [
+            sys.executable,
+            str(Path(__file__).parent / "download_mapillary.py"),
+            str(lat),
+            str(lon),
+            str(radius_km),
+            "--output",
+            str(IMAGES_PRE_PATH),
+        ]
+
+        if MAPILLARY_API_KEY != "YOUR_API_KEY_HERE":
+            cmd.extend(["--api-key", MAPILLARY_API_KEY])
+
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+
+        if result.returncode != 0:
+            st.error(f"Download error: {result.stderr}")
+            return None
+
+        return IMAGES_PRE_PATH
+
+    except subprocess.TimeoutExpired:
+        st.error("Download timeout - too many images or slow connection")
+        return None
+    except Exception as e:
+        st.error(f"Download error: {str(e)}")
+        return None
+
+
+def run_inference_on_images(confidence_threshold=0.74):
+    """
+    Run inference on all images in the pre directory.
+
+    Args:
+        confidence_threshold: Confidence threshold for detections
+
+    Returns:
+        Results dictionary or None if error
+    """
+    try:
+        # Check if images exist
+        image_extensions = {".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".tif"}
+        image_files = [
+            f
+            for f in IMAGES_PRE_PATH.iterdir()
+            if f.is_file() and f.suffix.lower() in image_extensions
+        ]
+
+        if not image_files:
+            st.warning("No images found in pre directory")
+            return None
+
+        # Create output directory
+        IMAGES_OUTPUT_PATH.mkdir(parents=True, exist_ok=True)
+
+        # Load metadata
+        metadata_map = {}
+        if METADATA_PATH.exists():
+            metadata_map = load_metadata(str(METADATA_PATH))
+
+        # Create progress bar
+        progress_bar = st.progress(0)
+        status_text = st.empty()
+
+        # Process images
+        status_text.text(f"Processing {len(image_files)} images...")
+        results = process_image_batch(
+            str(MODEL_PATH),
+            [str(f) for f in image_files],
+            metadata_map=metadata_map,
+            output_dir=str(IMAGES_OUTPUT_PATH),
+            output_json_path=str(IMAGES_OUTPUT_PATH / "detections.json"),
+            confidence_threshold=confidence_threshold,
+            verbose=False,
+        )
+
+        # Update progress
+        progress_bar.progress(100)
+        status_text.text("✅ Inference complete!")
+
+        return results
+
+    except Exception as e:
+        st.error(f"Inference error: {str(e)}")
+        return None
+
+
 def add_geojson_markers(map_obj, geojson_data, label_filter=None):
     """Add markers from GeoJSON to the map."""
     if not geojson_data:
         return
+
+    import base64
+    from pathlib import Path
 
     # Label mapping
     LABEL_MAP = {1: "Crack", 2: "Manhole", 3: "Pothole"}
@@ -139,166 +277,22 @@ def add_geojson_markers(map_obj, geojson_data, label_filter=None):
         ).add_to(map_obj)
 
 
-def create_map(location, zoom=12, show_geojson=True, label_filter=None, use_detections=False):
+def create_map(location, zoom=12, show_geojson=True, label_filter=None):
     """Create a folium map centered on location."""
     m = folium.Map(location=location, zoom_start=zoom, tiles="OpenStreetMap")
 
     # Add click event to get coordinates
     m.add_child(folium.LatLngPopup())
 
-    # Add GeoJSON markers
+    # Add GeoJSON markers only if enabled
     if show_geojson:
-        if use_detections:
-            # Load from detections.json (Mapillary mode after inference)
-            detections_file = IMAGES_OUTPUT_PATH / "detections.json"
-            if detections_file.exists():
-                with open(detections_file, "r") as f:
-                    geojson_data = json.load(f)
-            else:
-                geojson_data = None
-        else:
-            # Load from points.geojson (pre-loaded mode)
-            geojson_data = load_geojson()
-        
+        geojson_data = load_geojson()
         add_geojson_markers(m, geojson_data, label_filter)
 
     return m
 
 
-def download_mapillary_images(lat, lon, radius_km, output_dir="mapillary_downloads"):
-    """
-    Download Mapillary images for the specified area.
-
-    Args:
-        lat: Latitude
-        lon: Longitude
-        radius_km: Radius in kilometers
-        output_dir: Output directory for images
-
-    Returns:
-        Path to downloaded images
-    """
-    try:
-        # Clear previous images
-        if IMAGES_PRE_PATH.exists():
-            for f in IMAGES_PRE_PATH.glob("*"):
-                if f.is_file():
-                    f.unlink()
-        else:
-            IMAGES_PRE_PATH.mkdir(parents=True, exist_ok=True)
-
-        # Run download command
-        cmd = [
-            sys.executable,
-            str(Path(__file__).parent / "download_mapillary.py"),
-            str(lat),
-            str(lon),
-            str(radius_km),
-            "--output",
-            str(IMAGES_PRE_PATH.parent / "pre_temp"),  # Use temp directory
-        ]
-
-        if MAPILLARY_API_KEY != "YOUR_API_KEY_HERE":
-            cmd.extend(["--api-key", MAPILLARY_API_KEY])
-
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
-
-        if result.returncode != 0:
-            st.error(f"Download error: {result.stderr}")
-            return None
-
-        # Find the actual created directory (with timestamp)
-        parent_dir = IMAGES_PRE_PATH.parent
-        temp_dirs = list(parent_dir.glob("pre_temp_*"))
-        
-        if not temp_dirs:
-            st.error("Download completed but output directory not found")
-            return None
-        
-        # Use the most recent one
-        actual_download_dir = sorted(temp_dirs)[-1]
-        
-        # Move files from temp directory to pre directory
-        for f in actual_download_dir.glob("*"):
-            if f.is_file():
-                f.rename(IMAGES_PRE_PATH / f.name)
-        
-        # Clean up temp directory
-        import shutil
-        shutil.rmtree(actual_download_dir, ignore_errors=True)
-
-        return IMAGES_PRE_PATH
-
-    except subprocess.TimeoutExpired:
-        st.error("Download timeout - too many images or slow connection")
-        return None
-    except Exception as e:
-        st.error(f"Download error: {str(e)}")
-        return None
-
-
-def run_inference_on_images(confidence_threshold=0.74):
-    """
-    Run inference on all images in the pre directory.
-
-    Args:
-        confidence_threshold: Confidence threshold for detections
-
-    Returns:
-        Results dictionary or None if error
-    """
-    try:
-        # Check if images exist
-        image_extensions = {".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".tif"}
-        image_files = [
-            f
-            for f in IMAGES_PRE_PATH.iterdir()
-            if f.is_file() and f.suffix.lower() in image_extensions
-        ]
-
-        if not image_files:
-            st.warning("No images found in pre directory")
-            return None
-
-        # Create output directory
-        IMAGES_OUTPUT_PATH.mkdir(parents=True, exist_ok=True)
-
-        # Load metadata
-        metadata_map = {}
-        if METADATA_PATH.exists():
-            metadata_map = load_metadata(str(METADATA_PATH))
-
-        # Create progress bar
-        progress_bar = st.progress(0)
-        status_text = st.empty()
-
-        # Process images
-        status_text.text(f"Processing {len(image_files)} images...")
-        results = process_image_batch(
-            str(MODEL_PATH),
-            [str(f) for f in image_files],
-            metadata_map=metadata_map,
-            output_dir=str(IMAGES_OUTPUT_PATH),
-            output_json_path=str(IMAGES_OUTPUT_PATH / "detections.json"),
-            confidence_threshold=confidence_threshold,
-            verbose=False,
-        )
-
-        # Update progress
-        progress_bar.progress(100)
-        status_text.text("✅ Inference complete!")
-
-        return results
-
-    except Exception as e:
-        st.error(f"Inference error: {str(e)}")
-        return None
-
-
-# ============================================================================
-# MAIN APP
-# ============================================================================
-
+# Main app
 st.title("🗺️ City Map Dashboard with Inference")
 
 # Store marker mode in session state to access it later
@@ -307,9 +301,6 @@ if "marker_mode" not in st.session_state:
 
 if "inference_complete" not in st.session_state:
     st.session_state.inference_complete = False
-
-if "mapillary_processed" not in st.session_state:
-    st.session_state.mapillary_processed = False
 
 # Sidebar for configuration
 with st.sidebar:
@@ -423,14 +414,11 @@ mode_indicator = (
 )
 st.subheader(f"Map: {st.session_state.city_name} | {mode_indicator}")
 
-# Determine if we should show detections (Mapillary mode with processed results)
-use_detections = st.session_state.marker_mode == "Mapillary API" and st.session_state.get("mapillary_processed", False)
-
 # Create map with or without GeoJSON markers based on mode
-show_geojson = st.session_state.marker_mode == "Local GeoJSON" or use_detections
-label_filter = st.session_state.get("label_filter", None) if st.session_state.marker_mode == "Local GeoJSON" else None
+show_geojson = st.session_state.marker_mode == "Local GeoJSON"
+label_filter = st.session_state.get("label_filter", None) if show_geojson else None
 map_obj = create_map(
-    st.session_state.map_location, st.session_state.zoom, show_geojson, label_filter, use_detections
+    st.session_state.map_location, st.session_state.zoom, show_geojson, label_filter
 )
 
 # Display map and capture clicks
@@ -465,7 +453,6 @@ if st.session_state.marker_mode == "Mapillary API":
                             results = run_inference_on_images(confidence_threshold)
                             if results:
                                 st.session_state.inference_complete = True
-                                st.session_state.mapillary_processed = True  # Flag for map refresh
                                 st.success("✅ Inference complete!")
 
                                 # Show results
@@ -477,9 +464,6 @@ if st.session_state.marker_mode == "Mapillary API":
                                 st.info(
                                     f"Processed {len(results)} images, {successful} with detections"
                                 )
-                                
-                                # Force rerun to show updated map with detections
-                                st.rerun()
 
         with col2:
             st.info("👆 Select a location and click 'Download & Process' to start")

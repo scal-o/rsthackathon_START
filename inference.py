@@ -509,7 +509,7 @@ def run_inference(
 if __name__ == "__main__":
     from pathlib import Path
 
-    model_path = "./modello_del_peter.onnx"
+    model_path = "./models/modello_del_peter.onnx"
     data_dir = Path("static/images/pre")
     output_dir = Path("static/images/output")
     metadata_path = "./static/images/pre/metadata.json"  # Path to your metadata file
