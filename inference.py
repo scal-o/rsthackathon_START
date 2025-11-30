@@ -375,6 +375,10 @@ def process_image_batch(
     # Load model once for all images
     session = ort.InferenceSession(model_path)
 
+    # Create output directory if needed
+    if output_dir:
+        Path(output_dir).mkdir(parents=True, exist_ok=True)
+
     results = []
 
     for image_path in image_paths:

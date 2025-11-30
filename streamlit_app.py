@@ -576,9 +576,9 @@ with st.form("search_form"):
 
 # Initialize session state
 if "map_location" not in st.session_state:
-    st.session_state.map_location = [48.8566, 2.3522]  # Default: Paris
+    st.session_state.map_location = [48.1351, 11.5820]  # Default: Munich
     st.session_state.zoom = 12
-    st.session_state.city_name = "Paris"
+    st.session_state.city_name = "Munich"
     st.session_state.marker_mode = "Local GeoJSON"  # Default mode
 
 if "marker_mode" not in st.session_state:
