@@ -407,10 +407,10 @@ with st.sidebar:
             st.success("✅ Mapillary API key configured")
 
         search_radius_km = st.slider(
-            "Download radius (km)", min_value=0.1, max_value=5.0, value=1.0, step=0.1
+            "Download radius (km)", min_value=0.1, max_value=5.0, value=0.2, step=0.1
         )
     else:
-        search_radius_km = 1.0
+        search_radius_km = 0.2
         geojson_data = load_geojson()
         if geojson_data:
             num_markers = len(geojson_data.get("features", []))
@@ -489,6 +489,11 @@ mode_indicator = (
 )
 st.subheader(f"Map: {st.session_state.city_name} | {mode_indicator}")
 
+# Show download button at the top for Mapillary mode if location is clicked
+if st.session_state.marker_mode == "Mapillary API":
+    # We'll populate this after map click data is available
+    download_button_placeholder = st.empty()
+
 # Determine if we should show detections (Mapillary mode with processed results)
 use_detections = st.session_state.marker_mode == "Mapillary API" and st.session_state.get("mapillary_processed", False)
 
@@ -502,7 +507,7 @@ map_obj = create_map(
 # Display map and capture clicks
 map_data = st_folium(map_obj, width=None, height=600, returned_objects=["last_clicked"])
 
-# Handle map clicks (Mapillary mode) - show download button below map
+# Handle map clicks (Mapillary mode) - show download button ABOVE map
 if st.session_state.marker_mode == "Mapillary API":
     if map_data and map_data.get("last_clicked"):
         clicked_lat = map_data["last_clicked"]["lat"]
@@ -512,37 +517,39 @@ if st.session_state.marker_mode == "Mapillary API":
         st.session_state.clicked_lat = clicked_lat
         st.session_state.clicked_lon = clicked_lon
 
-        st.markdown("---")
-        # Download & Process button - appears below the map
-        if st.button("⬇️ Download & Process", use_container_width=True, key="download_process"):
-            with st.spinner("Downloading images from Mapillary..."):
-                download_result = download_mapillary_images(
-                    clicked_lat, clicked_lon, search_radius_km
-                )
+        # Fill the placeholder with download button at the top
+        with download_button_placeholder.container():
+            col1, col2, col3 = st.columns([1, 1, 1])
+            with col2:
+                if st.button("⬇️ Download & Process", use_container_width=True, key="download_process"):
+                    with st.spinner("Downloading images from Mapillary..."):
+                        download_result = download_mapillary_images(
+                            clicked_lat, clicked_lon, search_radius_km
+                        )
 
-                if download_result:
-                    st.success(f"✅ Images downloaded to {download_result}")
+                        if download_result:
+                            st.success(f"✅ Images downloaded to {download_result}")
 
-                    # Run inference
-                    with st.spinner("Running inference..."):
-                        results = run_inference_on_images(confidence_threshold)
-                        if results:
-                            st.session_state.inference_complete = True
-                            st.session_state.mapillary_processed = True  # Flag for map refresh
-                            st.success("✅ Inference complete!")
+                            # Run inference
+                            with st.spinner("Running inference..."):
+                                results = run_inference_on_images(confidence_threshold)
+                                if results:
+                                    st.session_state.inference_complete = True
+                                    st.session_state.mapillary_processed = True  # Flag for map refresh
+                                    st.success("✅ Inference complete!")
 
-                            # Show results
-                            successful = sum(
-                                1
-                                for r in results
-                                if "boxes" in r and len(r["boxes"]) > 0
-                            )
-                            st.info(
-                                f"Processed {len(results)} images, {successful} with detections"
-                            )
-                            
-                            # Force rerun to show updated map with detections
-                            st.rerun()
+                                    # Show results
+                                    successful = sum(
+                                        1
+                                        for r in results
+                                        if "boxes" in r and len(r["boxes"]) > 0
+                                    )
+                                    st.info(
+                                        f"Processed {len(results)} images, {successful} with detections"
+                                    )
+                                    
+                                    # Force rerun to show updated map with detections
+                                    st.rerun()
 
 elif st.session_state.marker_mode == "Local GeoJSON":
     st.markdown("---")
@@ -584,6 +591,26 @@ if st.session_state.inference_complete:
                 "Labels Found",
                 len(summary.get("unique_labels", [])),
             )
+            
+            # Detailed breakdown by label with colors
+            st.markdown("### Detection Breakdown by Type")
+            label_stats = summary.get("label_stats", {})
+            
+            for label_id, label_name, label_emoji, label_color in [
+                (1, "Crack", "🔴", "#e74c3c"),
+                (2, "Manhole", "🔵", "#3498db"),
+                (3, "Pothole", "🟠", "#e67e22"),
+            ]:
+                label_key = str(label_id)
+                if label_key in label_stats:
+                    stats = label_stats[label_key]
+                    col1, col2, col3 = st.columns(3)
+                    with col1:
+                        st.markdown(f"**{label_emoji} {label_name}**")
+                    with col2:
+                        st.metric("Count", stats.get("count", 0))
+                    with col3:
+                        st.metric("Avg Conf", f"{stats.get('avg_confidence', 0):.1%}")
 
 # Footer
 st.markdown("---")
