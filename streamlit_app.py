@@ -4,7 +4,6 @@ import os
 import shutil
 import subprocess
 import sys
-import time
 from pathlib import Path
 
 import folium
@@ -42,13 +41,13 @@ def load_geojson():
     """Load GeoJSON data from file, including user-uploaded metadata.
     NOT cached because we need fresh data when new images are uploaded."""
     features = []
-    
+
     # Load pre-loaded GeoJSON
     if os.path.exists(GEOJSON_PATH):
         with open(GEOJSON_PATH, "r") as f:
             geojson_data = json.load(f)
             features.extend(geojson_data.get("features", []))
-    
+
     # Load user-uploaded metadata and convert to GeoJSON features
     if METADATA_USERS_PATH.exists():
         try:
@@ -62,13 +61,13 @@ def load_geojson():
                             "image": entry.get("image", ""),
                             "image_id": entry.get("image_id", ""),
                             "captured_at": entry.get("captured_at", ""),
-                            "labels": entry.get("labels", [])
-                        }
+                            "labels": entry.get("labels", []),
+                        },
                     }
                     features.append(feature)
         except Exception as e:
             pass  # Silently fail if metadata file is empty or malformed
-    
+
     if features:
         return {"type": "FeatureCollection", "features": features}
     return None
@@ -361,20 +360,26 @@ def run_inference_on_images(confidence_threshold=0.74):
         # Check if images exist in both pre and pre_users directories
         image_extensions = {".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".tif"}
         image_files = []
-        
+
         # Collect images from pre directory
         if IMAGES_PRE_PATH.exists():
-            image_files.extend([
-                f for f in IMAGES_PRE_PATH.iterdir()
-                if f.is_file() and f.suffix.lower() in image_extensions
-            ])
-        
+            image_files.extend(
+                [
+                    f
+                    for f in IMAGES_PRE_PATH.iterdir()
+                    if f.is_file() and f.suffix.lower() in image_extensions
+                ]
+            )
+
         # Collect images from pre_users directory
         if IMAGES_PRE_USERS_PATH.exists():
-            image_files.extend([
-                f for f in IMAGES_PRE_USERS_PATH.iterdir()
-                if f.is_file() and f.suffix.lower() in image_extensions
-            ])
+            image_files.extend(
+                [
+                    f
+                    for f in IMAGES_PRE_USERS_PATH.iterdir()
+                    if f.is_file() and f.suffix.lower() in image_extensions
+                ]
+            )
 
         if not image_files:
             st.warning("No images found in pre or pre_users directories")
@@ -415,9 +420,11 @@ def run_inference_on_images(confidence_threshold=0.74):
         # Create progress bar
         progress_bar = st.progress(0)
         status_text = st.empty()
-        
+
         # Show cleanup status
-        status_text.text(f"Output cleaned. Processing {len(image_files)} images from both sources...")
+        status_text.text(
+            f"Output cleaned. Processing {len(image_files)} images from both sources..."
+        )
         results = process_image_batch(
             str(MODEL_PATH),
             [str(f) for f in image_files],
@@ -635,7 +642,9 @@ if detections_file.exists():
         pass
 
 # Display map and capture clicks
-map_data = st_folium(map_obj, width=None, height=600, returned_objects=["last_clicked"], key=map_key)
+map_data = st_folium(
+    map_obj, width=None, height=600, returned_objects=["last_clicked"], key=map_key
+)
 
 # Handle map clicks (Mapillary mode) - show modal dialog
 if st.session_state.marker_mode == "Mapillary API":
@@ -718,10 +727,14 @@ elif st.session_state.marker_mode == "Local GeoJSON":
     def should_run_inference():
         if not st.session_state.get("preload_inference_done", False):
             return True
-        
+
         # Check if there are new unprocessed images in pre_users
         if IMAGES_PRE_USERS_PATH.exists():
-            user_images = list(IMAGES_PRE_USERS_PATH.glob("*.jpg")) + list(IMAGES_PRE_USERS_PATH.glob("*.jpeg")) + list(IMAGES_PRE_USERS_PATH.glob("*.png"))
+            user_images = (
+                list(IMAGES_PRE_USERS_PATH.glob("*.jpg"))
+                + list(IMAGES_PRE_USERS_PATH.glob("*.jpeg"))
+                + list(IMAGES_PRE_USERS_PATH.glob("*.png"))
+            )
             if user_images:
                 # Check if any user images don't have a corresponding detected version
                 for img_path in user_images:
@@ -735,7 +748,7 @@ elif st.session_state.marker_mode == "Local GeoJSON":
     if should_run_inference():
         with st.spinner("Running inference on pre-loaded and user-uploaded images..."):
             results = run_inference_on_images(confidence_threshold)
-            
+
             # Clear cache after inference
             st.cache_data.clear()
             if results:
@@ -763,15 +776,22 @@ footer_text = (
 )
 st.caption(footer_text)
 
-# Auto-refresh mechanism for detecting new uploads
+# Auto-refresh when new uploads are detected
 if st.session_state.marker_mode == "Local GeoJSON":
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        st.caption("🔄 Auto-checking for new uploads every 5 seconds...")
-    with col2:
-        if st.button("Refresh Now", use_container_width=True):
-            st.rerun()
-    
-    # Automatically rerun every 5 seconds
-    time.sleep(5)
-    st.rerun()
+    # Track last modification time of metadata file
+    if "last_metadata_mtime" not in st.session_state:
+        if METADATA_USERS_PATH.exists():
+            st.session_state.last_metadata_mtime = METADATA_USERS_PATH.stat().st_mtime
+        else:
+            st.session_state.last_metadata_mtime = 0
+
+    # Check if metadata file has been modified
+    current_mtime = METADATA_USERS_PATH.stat().st_mtime if METADATA_USERS_PATH.exists() else 0
+
+    if current_mtime != st.session_state.last_metadata_mtime:
+        st.session_state.last_metadata_mtime = current_mtime
+        st.rerun()
+
+    # Manual refresh button
+    if st.button("🔄 Check for New Uploads", use_container_width=True):
+        st.rerun()
