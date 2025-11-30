@@ -42,9 +42,6 @@ temp/
 *.tmp
 *.log
 
-# Streamlit
-.streamlit/secrets.toml
-
 # Model files (optional - uncomment if model is large)
 # *.onnx
 
