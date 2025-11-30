@@ -143,7 +143,7 @@ def create_map(location, zoom=12, show_geojson=True, label_filter=None, use_dete
     """Create a folium map centered on location."""
     m = folium.Map(location=location, zoom_start=zoom, tiles="OpenStreetMap")
 
-    # Add click event to get coordinates
+    # Add click event to get coordinates - restore original LatLngPopup
     m.add_child(folium.LatLngPopup())
 
     # Add GeoJSON markers
@@ -201,11 +201,71 @@ def download_mapillary_images(lat, lon, radius_km, output_dir="mapillary_downloa
         if MAPILLARY_API_KEY != "YOUR_API_KEY_HERE":
             cmd.extend(["--api-key", MAPILLARY_API_KEY])
 
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+        # Create placeholders for progress feedback
+        progress_container = st.container()
+        status_text = progress_container.empty()
+        progress_bar = progress_container.progress(0)
 
-        if result.returncode != 0:
-            st.error(f"Download error: {result.stderr}")
+        # Run with real-time progress output (unbuffered)
+        env = os.environ.copy()
+        env['PYTHONUNBUFFERED'] = '1'
+        
+        process = subprocess.Popen(
+            cmd, 
+            stdout=subprocess.PIPE, 
+            stderr=subprocess.PIPE, 
+            text=True,
+            bufsize=1,  # Line buffered
+            env=env
+        )
+
+        fetch_count = 0
+        download_current = 0
+        download_total = 0
+
+        # Read output in real-time
+        try:
+            for line in iter(process.stdout.readline, ""):
+                if not line:
+                    break
+
+                line = line.strip()
+                
+                # Debug: log all output
+                print(f"[DEBUG] {line}", file=sys.stderr)
+
+                # Parse progress output
+                if line.startswith("PROGRESS:"):
+                    try:
+                        fetch_count = int(line.split(":")[1])
+                        status_text.text(f"📥 Fetching metadata: {fetch_count} images found...")
+                        progress_bar.progress(min(0.3, fetch_count / 10000))
+                    except (ValueError, IndexError):
+                        pass
+
+                elif line.startswith("DOWNLOAD_PROGRESS:"):
+                    try:
+                        parts = line.split(":")[1].split("/")
+                        download_current = int(parts[0])
+                        download_total = int(parts[1])
+                        pct = min(0.3 + 0.7 * (download_current / download_total), 0.99)
+                        status_text.text(
+                            f"⬇️ Downloading: {download_current}/{download_total} images"
+                        )
+                        progress_bar.progress(pct)
+                    except (ValueError, IndexError):
+                        pass
+        except Exception as e:
+            st.warning(f"Progress tracking error: {e}")
+
+        process.wait()
+
+        if process.returncode != 0:
+            st.error(f"Download error occurred")
             return None
+
+        status_text.text("🔄 Processing downloaded files...")
+        progress_bar.progress(0.95)
 
         # Find the actual created directory (with timestamp)
         parent_dir = IMAGES_PRE_PATH.parent
@@ -226,6 +286,9 @@ def download_mapillary_images(lat, lon, radius_km, output_dir="mapillary_downloa
         # Clean up temp directory
         import shutil
         shutil.rmtree(actual_download_dir, ignore_errors=True)
+
+        progress_bar.progress(1.0)
+        status_text.text(f"✅ Downloaded {download_total} images successfully!")
 
         return IMAGES_PRE_PATH
 
@@ -370,6 +433,7 @@ with st.sidebar:
             st.session_state.label_filter = None
 
     st.markdown("---")
+    
     st.markdown("### 📖 How to Use")
     if marker_mode == "Mapillary API":
         st.markdown("""
@@ -387,12 +451,14 @@ with st.sidebar:
         4. Click markers for details
         """)
 
-# City search
-col1, col2 = st.columns([3, 1])
-with col1:
-    city = st.text_input("Enter city name", placeholder="e.g., Paris, Tokyo, New York")
-with col2:
-    search_button = st.button("🔍 Search", use_container_width=True)
+# City search - left-aligned with form for Enter key support
+st.markdown("### 🔍 Search City")
+with st.form("search_form"):
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        city = st.text_input("Enter city name", placeholder="e.g., Paris, Tokyo, New York", label_visibility="collapsed")
+    with col2:
+        search_button = st.form_submit_button("🔍 Search", use_container_width=True)
 
 # Initialize session state
 if "map_location" not in st.session_state:
@@ -436,53 +502,47 @@ map_obj = create_map(
 # Display map and capture clicks
 map_data = st_folium(map_obj, width=None, height=600, returned_objects=["last_clicked"])
 
-# Handle map clicks (Mapillary mode)
+# Handle map clicks (Mapillary mode) - show download button below map
 if st.session_state.marker_mode == "Mapillary API":
     if map_data and map_data.get("last_clicked"):
         clicked_lat = map_data["last_clicked"]["lat"]
         clicked_lon = map_data["last_clicked"]["lng"]
 
+        # Store clicked location in session state
+        st.session_state.clicked_lat = clicked_lat
+        st.session_state.clicked_lon = clicked_lon
+
         st.markdown("---")
-        st.subheader("📍 Clicked Location")
+        # Download & Process button - appears below the map
+        if st.button("⬇️ Download & Process", use_container_width=True, key="download_process"):
+            with st.spinner("Downloading images from Mapillary..."):
+                download_result = download_mapillary_images(
+                    clicked_lat, clicked_lon, search_radius_km
+                )
 
-        col1, col2 = st.columns([1, 2])
+                if download_result:
+                    st.success(f"✅ Images downloaded to {download_result}")
 
-        with col1:
-            st.metric("Latitude", f"{clicked_lat:.6f}")
-            st.metric("Longitude", f"{clicked_lon:.6f}")
+                    # Run inference
+                    with st.spinner("Running inference..."):
+                        results = run_inference_on_images(confidence_threshold)
+                        if results:
+                            st.session_state.inference_complete = True
+                            st.session_state.mapillary_processed = True  # Flag for map refresh
+                            st.success("✅ Inference complete!")
 
-            if st.button("⬇️ Download & Process"):
-                with st.spinner("Downloading images from Mapillary..."):
-                    download_result = download_mapillary_images(
-                        clicked_lat, clicked_lon, search_radius_km
-                    )
-
-                    if download_result:
-                        st.success(f"✅ Images downloaded to {download_result}")
-
-                        # Run inference
-                        with st.spinner("Running inference..."):
-                            results = run_inference_on_images(confidence_threshold)
-                            if results:
-                                st.session_state.inference_complete = True
-                                st.session_state.mapillary_processed = True  # Flag for map refresh
-                                st.success("✅ Inference complete!")
-
-                                # Show results
-                                successful = sum(
-                                    1
-                                    for r in results
-                                    if "boxes" in r and len(r["boxes"]) > 0
-                                )
-                                st.info(
-                                    f"Processed {len(results)} images, {successful} with detections"
-                                )
-                                
-                                # Force rerun to show updated map with detections
-                                st.rerun()
-
-        with col2:
-            st.info("👆 Select a location and click 'Download & Process' to start")
+                            # Show results
+                            successful = sum(
+                                1
+                                for r in results
+                                if "boxes" in r and len(r["boxes"]) > 0
+                            )
+                            st.info(
+                                f"Processed {len(results)} images, {successful} with detections"
+                            )
+                            
+                            # Force rerun to show updated map with detections
+                            st.rerun()
 
 elif st.session_state.marker_mode == "Local GeoJSON":
     st.markdown("---")

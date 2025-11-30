@@ -108,7 +108,9 @@ class MapillaryDownloader:
                     break
 
                 all_images.extend(images)
-                print(f"Fetched {len(all_images)} images so far...")
+                # Print machine-readable progress with flush
+                print(f"PROGRESS:{len(all_images)}", flush=True)
+                print(f"Fetched {len(all_images)} images so far...", flush=True)
 
                 # Check if there's another page
                 paging = data.get("paging", {})
@@ -229,6 +231,9 @@ class MapillaryDownloader:
             else:
                 failed += 1
                 print("✗")
+            
+            # Print machine-readable progress for download
+            print(f"DOWNLOAD_PROGRESS:{i}/{len(images)}", flush=True)
 
             # Rate limiting
             time.sleep(0.3)
