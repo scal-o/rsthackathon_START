@@ -4,6 +4,7 @@ import os
 import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import folium
@@ -155,16 +156,17 @@ def add_geojson_markers(map_obj, geojson_data, label_filter=None):
                 try:
                     with open(detected_path, "rb") as img_file:
                         img_data = base64.b64encode(img_file.read()).decode()
-                        images_html = f'<img src="data:image/jpeg;base64,{img_data}" style="width: 100%; height: auto; border-radius: 4px; margin-bottom: 8px;">'
+                        # Enlarged image styling
+                        images_html = f'<img src="data:image/jpeg;base64,{img_data}" style="width: 100%; height: auto; max-height: 500px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">'
                 except Exception:
                     pass
 
-        # Create popup with image and info
+        # Create popup with image and info (enlarged popup)
         popup_html = f"""
-        <div style="width: 280px; font-family: Arial, sans-serif;">
-            <h4 style="margin: 0 0 10px 0; color: #2c3e50;">📍 {marker_label}</h4>
+        <div style="width: 450px; font-family: Arial, sans-serif; padding: 10px;">
+            <h4 style="margin: 0 0 10px 0; color: #2c3e50; font-size: 16px;">📍 {marker_label}</h4>
             {images_html}
-            <p style="margin: 5px 0; font-size: 12px; color: #7f8c8d;"><strong>Image ID:</strong> {image_id}</p>
+            <p style="margin: 8px 0; font-size: 12px; color: #7f8c8d;"><strong>Image ID:</strong> {image_id}</p>
             {detections_html}
         </div>
         """
@@ -180,13 +182,13 @@ def add_geojson_markers(map_obj, geojson_data, label_filter=None):
 
         folium.Marker(
             location=[lat, lon],
-            popup=folium.Popup(popup_html, max_width=300),
+            popup=folium.Popup(popup_html, max_width=500),
             tooltip=marker_label,
             icon=folium.Icon(color=marker_color, icon="info-sign"),
         ).add_to(map_obj)
 
 
-def create_map(location, zoom=12, show_geojson=True, label_filter=None, use_detections=False):
+def create_map(location, zoom=13, show_geojson=True, label_filter=None, use_detections=False):
     """Create a folium map centered on location."""
     m = folium.Map(location=location, zoom_start=zoom, tiles="OpenStreetMap")
 
@@ -584,7 +586,7 @@ with st.form("search_form"):
 # Initialize session state
 if "map_location" not in st.session_state:
     st.session_state.map_location = [48.1351, 11.5820]  # Default: Munich
-    st.session_state.zoom = 12
+    st.session_state.zoom = 13
     st.session_state.city_name = "Munich"
     st.session_state.marker_mode = "Local GeoJSON"  # Default mode
 
@@ -600,7 +602,7 @@ if search_button and city:
 
             if location:
                 st.session_state.map_location = [location.latitude, location.longitude]
-                st.session_state.zoom = 12
+                st.session_state.zoom = 13
                 st.session_state.city_name = city
             else:
                 st.error(f"Could not find location: {city}")
@@ -778,7 +780,16 @@ st.caption(footer_text)
 
 # Auto-refresh when new uploads are detected
 if st.session_state.marker_mode == "Local GeoJSON":
-    # Track last modification time of metadata file
+    # Check for upload signal file (created by mobile_upload.py)
+    SIGNAL_FILE = Path(__file__).parent / ".upload_signal"
+    if SIGNAL_FILE.exists():
+        try:
+            SIGNAL_FILE.unlink()  # Remove signal file
+            st.rerun()  # Trigger immediate refresh
+        except:
+            pass
+    
+    # Also track metadata file modification as fallback
     if "last_metadata_mtime" not in st.session_state:
         if METADATA_USERS_PATH.exists():
             st.session_state.last_metadata_mtime = METADATA_USERS_PATH.stat().st_mtime
@@ -795,3 +806,7 @@ if st.session_state.marker_mode == "Local GeoJSON":
     # Manual refresh button
     if st.button("🔄 Check for New Uploads", use_container_width=True):
         st.rerun()
+    
+    # Auto-refresh every 5 seconds when in Local GeoJSON mode
+    time.sleep(5)
+    st.rerun()

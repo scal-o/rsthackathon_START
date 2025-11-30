@@ -164,6 +164,13 @@ if uploaded_file is not None:
             metadata_list.append(metadata_entry)
             
             if save_metadata(metadata_list):
+                # Send signal to main app for immediate refresh
+                SIGNAL_FILE = Path(__file__).parent / ".upload_signal"
+                try:
+                    SIGNAL_FILE.touch()  # Create signal file
+                except:
+                    pass  # Silently fail if can't create signal
+                
                 st.success(f"✅ Upload successful!")
                 st.markdown(f"""
                 **Image saved:** `{filename}`  

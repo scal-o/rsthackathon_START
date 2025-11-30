@@ -6,270 +6,19 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          13.188478343478,
-          46.060989582609
+          11.567608827249654,
+          48.14926337539693
         ]
       },
       "properties": {
-        "image": "501515561296176_1537774544807.jpg",
-        "image_id": "501515561296176",
+        "image": "pothole_20251130_105934_008.jpg",
+        "image_id": "20251130_105934_008",
         "labels": [
           {
             "label": 2,
-            "avg_confidence": 0.899,
-            "min_confidence": 0.899,
-            "max_confidence": 0.899,
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          13.191256637196,
-          46.061186201028
-        ]
-      },
-      "properties": {
-        "image": "2292725464193612_1567173579335.jpg",
-        "image_id": "2292725464193612",
-        "labels": [
-          {
-            "label": 1,
-            "avg_confidence": 0.8736,
-            "min_confidence": 0.8325,
-            "max_confidence": 0.9146,
-            "count": 2
-          },
-          {
-            "label": 2,
-            "avg_confidence": 0.9563,
-            "min_confidence": 0.9563,
-            "max_confidence": 0.9563,
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          13.190358661465,
-          46.061155752866
-        ]
-      },
-      "properties": {
-        "image": "4614940658523083_1567173575553.jpg",
-        "image_id": "4614940658523083",
-        "labels": [
-          {
-            "label": 3,
-            "avg_confidence": 0.8425,
-            "min_confidence": 0.8425,
-            "max_confidence": 0.8425,
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          13.189597824895,
-          46.06112939728
-        ]
-      },
-      "properties": {
-        "image": "519788229165899_1567173572418.jpg",
-        "image_id": "519788229165899",
-        "labels": [
-          {
-            "label": 2,
-            "avg_confidence": 0.7406,
-            "min_confidence": 0.7406,
-            "max_confidence": 0.7406,
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          13.190826205246,
-          46.061173289508
-        ]
-      },
-      "properties": {
-        "image": "508413137020779_1567173577540.jpg",
-        "image_id": "508413137020779",
-        "labels": [
-          {
-            "label": 3,
-            "avg_confidence": 0.8563,
-            "min_confidence": 0.8563,
-            "max_confidence": 0.8563,
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          13.188580127778,
-          46.060970033333
-        ]
-      },
-      "properties": {
-        "image": "168719041843926_1578561602119.jpg",
-        "image_id": "168719041843926",
-        "labels": [
-          {
-            "label": 1,
-            "avg_confidence": 0.7802,
-            "min_confidence": 0.7802,
-            "max_confidence": 0.7802,
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          13.190085525385,
-          46.061146455385
-        ]
-      },
-      "properties": {
-        "image": "491282908871890_1567173574434.jpg",
-        "image_id": "491282908871890",
-        "labels": [
-          {
-            "label": 3,
-            "avg_confidence": 0.758,
-            "min_confidence": 0.758,
-            "max_confidence": 0.758,
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          13.188346785066,
-          46.061286880525
-        ]
-      },
-      "properties": {
-        "image": "263850115422997_1537774546605.jpg",
-        "image_id": "263850115422997",
-        "labels": [
-          {
-            "label": 3,
-            "avg_confidence": 0.7936,
-            "min_confidence": 0.7936,
-            "max_confidence": 0.7936,
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          13.191026468235,
-          46.061179365882
-        ]
-      },
-      "properties": {
-        "image": "3052244608352390_1567173578350.jpg",
-        "image_id": "3052244608352390",
-        "labels": [
-          {
-            "label": 1,
-            "avg_confidence": 0.8946,
-            "min_confidence": 0.8936,
-            "max_confidence": 0.8957,
-            "count": 2
-          },
-          {
-            "label": 3,
-            "avg_confidence": 0.9886,
-            "min_confidence": 0.9886,
-            "max_confidence": 0.9886,
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          13.18862761006,
-          46.060644722636
-        ]
-      },
-      "properties": {
-        "image": "785294208851549_1537774542709.jpg",
-        "image_id": "785294208851549",
-        "labels": [
-          {
-            "label": 1,
-            "avg_confidence": 0.8233,
-            "min_confidence": 0.8233,
-            "max_confidence": 0.8233,
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          11.56758555995723,
-          48.14925536799365
-        ]
-      },
-      "properties": {
-        "image": "pothole_20251130_102939_948.jpg",
-        "image_id": "20251130_102939_948",
-        "labels": [
-          {
-            "label": 1,
-            "avg_confidence": 0.7614,
-            "min_confidence": 0.7614,
-            "max_confidence": 0.7614,
-            "count": 1
-          },
-          {
-            "label": 3,
-            "avg_confidence": 0.7734,
-            "min_confidence": 0.7734,
-            "max_confidence": 0.7734,
+            "avg_confidence": 0.9024,
+            "min_confidence": 0.9024,
+            "max_confidence": 0.9024,
             "count": 1
           }
         ]
@@ -277,17 +26,15 @@
     }
   ],
   "summary": {
-    "total_images": 11,
+    "total_images": 1,
     "unique_labels": [
-      1,
-      2,
-      3
+      2
     ],
-    "total_detections": 16,
+    "total_detections": 1,
     "confidence_stats": {
-      "min": 0.7406,
-      "max": 0.9886,
-      "avg": 0.8443
+      "min": 0.9024,
+      "max": 0.9024,
+      "avg": 0.9024
     }
   }
 }
