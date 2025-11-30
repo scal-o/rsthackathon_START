@@ -76,6 +76,16 @@ def add_geojson_markers(map_obj, geojson_data, label_filter=None):
             if not any(label_id in label_filter for label_id in marker_labels):
                 continue  # Skip this marker
 
+        # Determine dominant label (highest count)
+        dominant_label = None
+        max_count = 0
+        if labels and len(labels) > 0:
+            for label_item in labels:
+                count = label_item.get("count", 1)
+                if count > max_count:
+                    max_count = count
+                    dominant_label = label_item.get("label")
+
         detections_html = ""
 
         if labels and len(labels) > 0:
@@ -130,11 +140,20 @@ def add_geojson_markers(map_obj, geojson_data, label_filter=None):
         </div>
         """
 
+        # Determine marker color based on dominant label
+        marker_color = "gray"  # Default color
+        if dominant_label == 1:
+            marker_color = "red"  # Cracks
+        elif dominant_label == 2:
+            marker_color = "blue"  # Manholes
+        elif dominant_label == 3:
+            marker_color = "orange"  # Potholes
+
         folium.Marker(
             location=[lat, lon],
             popup=folium.Popup(popup_html, max_width=300),
             tooltip=marker_label,
-            icon=folium.Icon(color="red", icon="info-sign"),
+            icon=folium.Icon(color=marker_color, icon="info-sign"),
         ).add_to(map_obj)
 
 
@@ -376,54 +395,57 @@ if "mapillary_processed" not in st.session_state:
 
 # Sidebar for configuration
 with st.sidebar:
-    st.header("⚙️ Configuration")
-
     # Mode selection
-    st.markdown("### 📍 Data Source")
+    st.markdown("**📍 Data Source**")
     st.session_state.marker_mode = st.radio(
         "Choose mode:",
         ["Local GeoJSON", "Mapillary API"],
         help="Local GeoJSON: Use pre-loaded dataset. Mapillary API: Download new images from map.",
+        label_visibility="collapsed",
     )
     marker_mode = st.session_state.marker_mode
 
-    st.markdown("---")
-
     # Inference settings
-    st.markdown("### 🤖 Inference Settings")
+    st.markdown("**🤖 Confidence Threshold**")
     confidence_threshold = st.slider(
-        "Confidence Threshold", min_value=0.0, max_value=1.0, value=0.74, step=0.01
+        "Confidence Threshold",
+        min_value=0.0,
+        max_value=1.0,
+        value=0.74,
+        step=0.01,
+        label_visibility="collapsed",
     )
-
-    st.markdown("---")
 
     if marker_mode == "Mapillary API":
         if MAPILLARY_API_KEY == "YOUR_API_KEY_HERE":
-            st.warning("⚠️ Mapillary API key not configured!")
-            st.info("Add your API key to `.streamlit/secrets.toml`")
-            st.code('MAPILLARY_API_KEY = "your_key_here"', language="toml")
-            st.markdown("[Get a free API key →](https://www.mapillary.com/developer)")
+            st.warning("⚠️ API key not configured")
         else:
-            st.success("✅ Mapillary API key configured")
+            st.success("✅ API key OK")
 
+        st.markdown("**📏 Download Radius**")
         search_radius_km = st.slider(
-            "Download radius (km)", min_value=0.1, max_value=5.0, value=0.2, step=0.1
+            "Download radius (km)",
+            min_value=0.1,
+            max_value=5.0,
+            value=0.2,
+            step=0.1,
+            label_visibility="collapsed",
         )
     else:
         search_radius_km = 0.2
         geojson_data = load_geojson()
         if geojson_data:
             num_markers = len(geojson_data.get("features", []))
-            st.info(f"📌 {num_markers} markers loaded from GeoJSON")
+            st.caption(f"📌 {num_markers} markers loaded")
 
             # Label filter checkboxes
-            st.markdown("### 🔍 Filter by Detection Type")
+            st.markdown("**🔍 Filter by Type**")
             selected_labels = st.multiselect(
-                "Show markers containing:",
+                "Show markers:",
                 options=[1, 2, 3],
                 format_func=lambda x: {1: "🔴 Crack", 2: "🔵 Manhole", 3: "🟠 Pothole"}[x],
                 default=[1, 2, 3],
-                help="Select which types of detections to display on the map",
+                label_visibility="collapsed",
             )
 
             # Store in session state
@@ -432,24 +454,50 @@ with st.sidebar:
             st.warning("⚠️ No GeoJSON file found")
             st.session_state.label_filter = None
 
+    # Display results summary in sidebar
     st.markdown("---")
+    st.markdown("**📊 Results**")
 
-    st.markdown("### 📖 How to Use")
-    if marker_mode == "Mapillary API":
-        st.markdown("""
-        1. Enter a city name
-        2. Click on map to place a pin
-        3. Click 'Download & Process'
-        4. Wait for images to download and inference to run
-        5. View results on map
-        """)
+    # Determine which data source to use
+    data_to_analyze = None
+
+    if marker_mode == "Mapillary API" and st.session_state.inference_complete:
+        # Use detections.json for Mapillary mode after inference
+        detections_file = IMAGES_OUTPUT_PATH / "detections.json"
+        if detections_file.exists():
+            with open(detections_file, "r") as f:
+                data_to_analyze = json.load(f)
+    elif marker_mode == "Local GeoJSON":
+        # Use points.geojson for Local GeoJSON mode
+        data_to_analyze = load_geojson()
+
+    # Calculate and display statistics
+    if data_to_analyze and "features" in data_to_analyze:
+        total_images = len(data_to_analyze.get("features", []))
+        total_detections = 0
+        label_counts = {1: 0, 2: 0, 3: 0}
+
+        for feature in data_to_analyze.get("features", []):
+            labels = feature.get("properties", {}).get("labels", [])
+            for label_item in labels:
+                label_id = label_item.get("label")
+                count = label_item.get("count", 1)
+                total_detections += count
+                if label_id in label_counts:
+                    label_counts[label_id] += count
+
+        st.markdown(f"**Images:** **{total_images}**")
+        st.markdown(f"**Total Detections:** **{total_detections}**")
+
+        st.markdown("**By Type:**")
+        if label_counts[1] > 0:
+            st.markdown(f"🔴 **Cracks:** **{label_counts[1]}**")
+        if label_counts[2] > 0:
+            st.markdown(f"🔵 **Manholes:** **{label_counts[2]}**")
+        if label_counts[3] > 0:
+            st.markdown(f"🟠 **Potholes:** **{label_counts[3]}**")
     else:
-        st.markdown("""
-        1. Enter a city name (optional)
-        2. View detections from pre-loaded dataset
-        3. Click 'Run Inference' to reprocess images
-        4. Click markers for details
-        """)
+        st.caption("No data to display")
 
 # City search - left-aligned with form for Enter key support
 st.markdown("### 🔍 Search City")
@@ -602,48 +650,6 @@ elif st.session_state.marker_mode == "Local GeoJSON":
     - Click markers for details and detection images
     - Use the 'Run Inference' button to reprocess images
     """)
-
-# Display detections summary if inference was run
-if st.session_state.inference_complete:
-    detections_file = IMAGES_OUTPUT_PATH / "detections.json"
-    if detections_file.exists():
-        st.markdown("---")
-        st.subheader("📊 Detection Summary")
-
-        with open(detections_file, "r") as f:
-            data = json.load(f)
-
-        if "summary" in data:
-            summary = data["summary"]
-
-            col1, col2, col3, col4 = st.columns(4)
-            col1.metric("Total Images", summary.get("total_images", 0))
-            col2.metric("Total Detections", summary.get("total_detections", 0))
-            col3.metric("Avg Confidence", f"{summary['confidence_stats'].get('avg', 0):.2%}")
-            col4.metric(
-                "Labels Found",
-                len(summary.get("unique_labels", [])),
-            )
-
-            # Detailed breakdown by label with colors
-            st.markdown("### Detection Breakdown by Type")
-            label_stats = summary.get("label_stats", {})
-
-            for label_id, label_name, label_emoji, label_color in [
-                (1, "Crack", "🔴", "#e74c3c"),
-                (2, "Manhole", "🔵", "#3498db"),
-                (3, "Pothole", "🟠", "#e67e22"),
-            ]:
-                label_key = str(label_id)
-                if label_key in label_stats:
-                    stats = label_stats[label_key]
-                    col1, col2, col3 = st.columns(3)
-                    with col1:
-                        st.markdown(f"**{label_emoji} {label_name}**")
-                    with col2:
-                        st.metric("Count", stats.get("count", 0))
-                    with col3:
-                        st.metric("Avg Conf", f"{stats.get('avg_confidence', 0):.1%}")
 
 # Footer
 st.markdown("---")
