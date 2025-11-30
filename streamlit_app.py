@@ -4,6 +4,7 @@ import os
 import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import folium
@@ -22,9 +23,11 @@ MAPILLARY_API_URL = "https://graph.mapillary.com/images"
 # Paths
 GEOJSON_PATH = os.path.join(os.path.dirname(__file__), "data", "points.geojson")
 IMAGES_PRE_PATH = Path(__file__).parent / "static" / "images" / "pre"
+IMAGES_PRE_USERS_PATH = Path(__file__).parent / "static" / "images" / "pre_users"
 IMAGES_OUTPUT_PATH = Path(__file__).parent / "static" / "images" / "output"
 MODEL_PATH = Path(__file__).parent / "models" / "modello_del_peter.onnx"
 METADATA_PATH = IMAGES_PRE_PATH / "metadata.json"
+METADATA_USERS_PATH = IMAGES_PRE_USERS_PATH / "metadata.json"
 
 # Import inference functions
 sys.path.insert(0, str(Path(__file__).parent))
@@ -35,12 +38,39 @@ from inference import load_metadata, process_image_batch
 # ============================================================================
 
 
-@st.cache_data
 def load_geojson():
-    """Load GeoJSON data from file."""
+    """Load GeoJSON data from file, including user-uploaded metadata.
+    NOT cached because we need fresh data when new images are uploaded."""
+    features = []
+    
+    # Load pre-loaded GeoJSON
     if os.path.exists(GEOJSON_PATH):
         with open(GEOJSON_PATH, "r") as f:
-            return json.load(f)
+            geojson_data = json.load(f)
+            features.extend(geojson_data.get("features", []))
+    
+    # Load user-uploaded metadata and convert to GeoJSON features
+    if METADATA_USERS_PATH.exists():
+        try:
+            with open(METADATA_USERS_PATH, "r") as f:
+                metadata_list = json.load(f)
+                for entry in metadata_list:
+                    feature = {
+                        "type": "Feature",
+                        "geometry": entry.get("geometry", {"type": "Point", "coordinates": [0, 0]}),
+                        "properties": {
+                            "image": entry.get("image", ""),
+                            "image_id": entry.get("image_id", ""),
+                            "captured_at": entry.get("captured_at", ""),
+                            "labels": entry.get("labels", [])
+                        }
+                    }
+                    features.append(feature)
+        except Exception as e:
+            pass  # Silently fail if metadata file is empty or malformed
+    
+    if features:
+        return {"type": "FeatureCollection", "features": features}
     return None
 
 
@@ -166,16 +196,14 @@ def create_map(location, zoom=12, show_geojson=True, label_filter=None, use_dete
 
     # Add GeoJSON markers
     if show_geojson:
-        if use_detections:
-            # Load from detections.json (Mapillary mode after inference)
-            detections_file = IMAGES_OUTPUT_PATH / "detections.json"
-            if detections_file.exists():
-                with open(detections_file, "r") as f:
-                    geojson_data = json.load(f)
-            else:
-                geojson_data = None
+        # Prefer detections.json if it exists (inference has been run)
+        detections_file = IMAGES_OUTPUT_PATH / "detections.json"
+        if detections_file.exists():
+            # Load from detections.json (after inference, regardless of mode)
+            with open(detections_file, "r") as f:
+                geojson_data = json.load(f)
         else:
-            # Load from points.geojson (pre-loaded mode)
+            # Load from points.geojson or user metadata (before inference)
             geojson_data = load_geojson()
 
         add_geojson_markers(m, geojson_data, label_filter)
@@ -330,32 +358,66 @@ def run_inference_on_images(confidence_threshold=0.74):
         Results dictionary or None if error
     """
     try:
-        # Check if images exist
+        # Check if images exist in both pre and pre_users directories
         image_extensions = {".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".tif"}
-        image_files = [
-            f
-            for f in IMAGES_PRE_PATH.iterdir()
-            if f.is_file() and f.suffix.lower() in image_extensions
-        ]
+        image_files = []
+        
+        # Collect images from pre directory
+        if IMAGES_PRE_PATH.exists():
+            image_files.extend([
+                f for f in IMAGES_PRE_PATH.iterdir()
+                if f.is_file() and f.suffix.lower() in image_extensions
+            ])
+        
+        # Collect images from pre_users directory
+        if IMAGES_PRE_USERS_PATH.exists():
+            image_files.extend([
+                f for f in IMAGES_PRE_USERS_PATH.iterdir()
+                if f.is_file() and f.suffix.lower() in image_extensions
+            ])
 
         if not image_files:
-            st.warning("No images found in pre directory")
+            st.warning("No images found in pre or pre_users directories")
             return None
 
         # Create output directory
         IMAGES_OUTPUT_PATH.mkdir(parents=True, exist_ok=True)
 
-        # Load metadata
+        # Load metadata from both sources
         metadata_map = {}
         if METADATA_PATH.exists():
-            metadata_map = load_metadata(str(METADATA_PATH))
+            metadata_map.update(load_metadata(str(METADATA_PATH)))
+        if METADATA_USERS_PATH.exists():
+            metadata_map.update(load_metadata(str(METADATA_USERS_PATH)))
+
+        # CLEAN output directory THOROUGHLY before inference
+        print(f"Attempting to clean output directory: {IMAGES_OUTPUT_PATH}")
+        try:
+            if IMAGES_OUTPUT_PATH.exists():
+                # Use shutil.rmtree to forcefully remove entire directory
+                shutil.rmtree(IMAGES_OUTPUT_PATH)
+                print(f"Successfully removed entire output directory")
+            # Recreate fresh directory
+            IMAGES_OUTPUT_PATH.mkdir(parents=True, exist_ok=True)
+            print(f"Created fresh output directory: {IMAGES_OUTPUT_PATH}")
+        except Exception as e:
+            print(f"Error cleaning output directory: {e}")
+            # Fallback: try to delete files individually
+            if IMAGES_OUTPUT_PATH.exists():
+                for f in list(IMAGES_OUTPUT_PATH.iterdir()):
+                    if f.is_file():
+                        try:
+                            f.unlink()
+                            print(f"Deleted file: {f}")
+                        except Exception as e2:
+                            print(f"Could not delete {f}: {e2}")
 
         # Create progress bar
         progress_bar = st.progress(0)
         status_text = st.empty()
-
-        # Process images
-        status_text.text(f"Processing {len(image_files)} images...")
+        
+        # Show cleanup status
+        status_text.text(f"Output cleaned. Processing {len(image_files)} images from both sources...")
         results = process_image_batch(
             str(MODEL_PATH),
             [str(f) for f in image_files],
@@ -517,6 +579,10 @@ if "map_location" not in st.session_state:
     st.session_state.map_location = [48.8566, 2.3522]  # Default: Paris
     st.session_state.zoom = 12
     st.session_state.city_name = "Paris"
+    st.session_state.marker_mode = "Local GeoJSON"  # Default mode
+
+if "marker_mode" not in st.session_state:
+    st.session_state.marker_mode = "Local GeoJSON"
 
 # Handle city search
 if search_button and city:
@@ -529,7 +595,6 @@ if search_button and city:
                 st.session_state.map_location = [location.latitude, location.longitude]
                 st.session_state.zoom = 12
                 st.session_state.city_name = city
-                st.success(f"✓ Found: {location.address}")
             else:
                 st.error(f"Could not find location: {city}")
         except Exception as e:
@@ -557,8 +622,20 @@ map_obj = create_map(
     st.session_state.map_location, st.session_state.zoom, show_geojson, label_filter, use_detections
 )
 
+# Force map to refresh by using a key based on detections file modification time
+# This ensures the map updates when new detections are available
+detections_file = IMAGES_OUTPUT_PATH / "detections.json"
+map_key = "map_base"
+if detections_file.exists():
+    try:
+        # Use file modification time to create unique key
+        mtime = detections_file.stat().st_mtime
+        map_key = f"map_{int(mtime * 1000)}"
+    except:
+        pass
+
 # Display map and capture clicks
-map_data = st_folium(map_obj, width=None, height=600, returned_objects=["last_clicked"])
+map_data = st_folium(map_obj, width=None, height=600, returned_objects=["last_clicked"], key=map_key)
 
 # Handle map clicks (Mapillary mode) - show modal dialog
 if st.session_state.marker_mode == "Mapillary API":
@@ -635,20 +712,46 @@ if st.session_state.marker_mode == "Mapillary API" and st.session_state.get(
 elif st.session_state.marker_mode == "Local GeoJSON":
     st.markdown("---")
 
-    # Run inference button for pre-loaded dataset
-    if st.button("🚀 Run Inference on Pre-loaded Images", use_container_width=True):
-        with st.spinner("Running inference on pre-loaded images..."):
+    # Check if we need to run inference:
+    # 1. First time in session (preload_inference_done not set)
+    # 2. New images in pre_users directory (crowdsourced uploads)
+    def should_run_inference():
+        if not st.session_state.get("preload_inference_done", False):
+            return True
+        
+        # Check if there are new unprocessed images in pre_users
+        if IMAGES_PRE_USERS_PATH.exists():
+            user_images = list(IMAGES_PRE_USERS_PATH.glob("*.jpg")) + list(IMAGES_PRE_USERS_PATH.glob("*.jpeg")) + list(IMAGES_PRE_USERS_PATH.glob("*.png"))
+            if user_images:
+                # Check if any user images don't have a corresponding detected version
+                for img_path in user_images:
+                    detected_filename = f"{img_path.stem}_detected{img_path.suffix}"
+                    detected_path = IMAGES_OUTPUT_PATH / detected_filename
+                    if not detected_path.exists():
+                        return True  # Found unprocessed image
+        return False
+
+    # Auto-run inference if needed
+    if should_run_inference():
+        with st.spinner("Running inference on pre-loaded and user-uploaded images..."):
             results = run_inference_on_images(confidence_threshold)
+            
+            # Clear cache after inference
+            st.cache_data.clear()
             if results:
                 st.session_state.inference_complete = True
+                st.session_state.preload_inference_done = True
                 successful = sum(1 for r in results if "boxes" in r and len(r["boxes"]) > 0)
                 st.success(f"✅ Processed {len(results)} images, {successful} with detections")
+                st.rerun()
+            else:
+                st.session_state.preload_inference_done = True
 
     st.markdown("""
     🗺️ **GeoJSON Mode**: 
     - Red markers show detected road issues from your local database
-    - Click markers for details and detection images
-    - Use the 'Run Inference' button to reprocess images
+    - Click markers for details and detection images with rectangles
+    - Inference runs automatically on all pre-loaded and user-uploaded images
     """)
 
 # Footer
@@ -659,3 +762,16 @@ footer_text = (
     else "Data sources: OpenStreetMap, Local GeoJSON"
 )
 st.caption(footer_text)
+
+# Auto-refresh mechanism for detecting new uploads
+if st.session_state.marker_mode == "Local GeoJSON":
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        st.caption("🔄 Auto-checking for new uploads every 5 seconds...")
+    with col2:
+        if st.button("Refresh Now", use_container_width=True):
+            st.rerun()
+    
+    # Automatically rerun every 5 seconds
+    time.sleep(5)
+    st.rerun()

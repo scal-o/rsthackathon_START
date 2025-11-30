@@ -135,6 +135,7 @@ def draw_bounding_boxes(image, boxes, labels, scores, threshold=0.5):
 def load_metadata(metadata_path):
     """
     Load metadata.json and create a mapping of image IDs to coordinates.
+    Handles both pre-loaded format (with 'id') and user-uploaded format (with 'image_id').
 
     Args:
         metadata_path: Path to metadata.json file
@@ -152,10 +153,12 @@ def load_metadata(metadata_path):
     # Create a mapping of image ID to metadata
     metadata_map = {}
     if isinstance(metadata, list):
-        # If it's a list, map by 'id' field
+        # If it's a list, map by 'id' field (pre-loaded) or 'image_id' field (user-uploaded)
         for entry in metadata:
-            if "id" in entry:
-                metadata_map[entry["id"]] = entry
+            # Try both 'id' and 'image_id' keys
+            key = entry.get("id") or entry.get("image_id")
+            if key:
+                metadata_map[key] = entry
     elif isinstance(metadata, dict):
         # If it's already a dict, check if it has an 'id' field or use keys directly
         if "id" in metadata:
@@ -171,8 +174,9 @@ def load_metadata(metadata_path):
 def extract_image_id(filename):
     """
     Extract image ID from filename.
-    Assumes filename format like: 3736697343123377_1578561568299.jpg
-    Takes only the first part before the underscore.
+    Handles two formats:
+    - Pre-loaded: 3736697343123377_1578561568299.jpg -> extract first part "3736697343123377"
+    - User-uploaded: pothole_20251130_091234_567.jpg -> extract timestamp part "20251130_091234_567"
 
     Args:
         filename: Image filename
@@ -181,7 +185,16 @@ def extract_image_id(filename):
         Image ID as string
     """
     stem = Path(filename).stem
-    # Extract only the ID part before the first underscore
+    
+    # Check if filename starts with "pothole_" (user-uploaded format)
+    if stem.startswith("pothole_"):
+        # For user uploads: pothole_YYYYMMDD_HHMMSS_mmm -> return YYYYMMDD_HHMMSS_mmm
+        parts = stem.split("_")
+        if len(parts) >= 4:
+            # Skip "pothole" prefix and join the timestamp parts
+            return "_".join(parts[1:])
+    
+    # For pre-loaded format: extract only the ID part before the first underscore
     return stem.split("_")[0]
 
 

@@ -6,19 +6,42 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          13.191529901246,
-          46.056535303738
+          13.190699402577,
+          46.05797178781
         ]
       },
       "properties": {
-        "image": "3736697343123377_1578561568299.jpg",
-        "image_id": "3736697343123377",
+        "image": "2166172610256974_1578561580094.jpg",
+        "image_id": "2166172610256974",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7587,
+            "min_confidence": 0.7587,
+            "max_confidence": 0.7587,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189645248988,
+          46.057738431579
+        ]
+      },
+      "properties": {
+        "image": "1067023043821802_1537774512669.jpg",
+        "image_id": "1067023043821802",
         "labels": [
           {
             "label": 1,
-            "avg_confidence": 0.77,
-            "min_confidence": 0.77,
-            "max_confidence": 0.77,
+            "avg_confidence": 0.8895,
+            "min_confidence": 0.8895,
+            "max_confidence": 0.8895,
             "count": 1
           }
         ]
@@ -82,6 +105,75 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          13.191529901246,
+          46.056535303738
+        ]
+      },
+      "properties": {
+        "image": "3736697343123377_1578561568299.jpg",
+        "image_id": "3736697343123377",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.77,
+            "min_confidence": 0.77,
+            "max_confidence": 0.77,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189679119701,
+          46.057983294627
+        ]
+      },
+      "properties": {
+        "image": "1107885013040491_1537774514835.jpg",
+        "image_id": "1107885013040491",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7692,
+            "min_confidence": 0.761,
+            "max_confidence": 0.7774,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.190699402577,
+          46.05797178781
+        ]
+      },
+      "properties": {
+        "image": "2166172610256974_1578561580094.jpg",
+        "image_id": "2166172610256974",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7587,
+            "min_confidence": 0.7587,
+            "max_confidence": 0.7587,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           13.189645248988,
           46.057738431579
         ]
@@ -95,6 +187,1949 @@
             "avg_confidence": 0.8895,
             "min_confidence": 0.8895,
             "max_confidence": 0.8895,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189585813333,
+          46.05751876
+        ]
+      },
+      "properties": {
+        "image": "460548255022544_1537774510872.jpg",
+        "image_id": "460548255022544",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7614,
+            "min_confidence": 0.7614,
+            "max_confidence": 0.7614,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.7734,
+            "min_confidence": 0.7734,
+            "max_confidence": 0.7734,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189445853313,
+          46.057218783434
+        ]
+      },
+      "properties": {
+        "image": "794898014797660_1537774508674.jpg",
+        "image_id": "794898014797660",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.7867,
+            "min_confidence": 0.7867,
+            "max_confidence": 0.7867,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.191529901246,
+          46.056535303738
+        ]
+      },
+      "properties": {
+        "image": "3736697343123377_1578561568299.jpg",
+        "image_id": "3736697343123377",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.77,
+            "min_confidence": 0.77,
+            "max_confidence": 0.77,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189679119701,
+          46.057983294627
+        ]
+      },
+      "properties": {
+        "image": "1107885013040491_1537774514835.jpg",
+        "image_id": "1107885013040491",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7692,
+            "min_confidence": 0.761,
+            "max_confidence": 0.7774,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.190699402577,
+          46.05797178781
+        ]
+      },
+      "properties": {
+        "image": "2166172610256974_1578561580094.jpg",
+        "image_id": "2166172610256974",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7587,
+            "min_confidence": 0.7587,
+            "max_confidence": 0.7587,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189645248988,
+          46.057738431579
+        ]
+      },
+      "properties": {
+        "image": "1067023043821802_1537774512669.jpg",
+        "image_id": "1067023043821802",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8895,
+            "min_confidence": 0.8895,
+            "max_confidence": 0.8895,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189585813333,
+          46.05751876
+        ]
+      },
+      "properties": {
+        "image": "460548255022544_1537774510872.jpg",
+        "image_id": "460548255022544",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7614,
+            "min_confidence": 0.7614,
+            "max_confidence": 0.7614,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.7734,
+            "min_confidence": 0.7734,
+            "max_confidence": 0.7734,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189445853313,
+          46.057218783434
+        ]
+      },
+      "properties": {
+        "image": "794898014797660_1537774508674.jpg",
+        "image_id": "794898014797660",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.7867,
+            "min_confidence": 0.7867,
+            "max_confidence": 0.7867,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.191529901246,
+          46.056535303738
+        ]
+      },
+      "properties": {
+        "image": "3736697343123377_1578561568299.jpg",
+        "image_id": "3736697343123377",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.77,
+            "min_confidence": 0.77,
+            "max_confidence": 0.77,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189679119701,
+          46.057983294627
+        ]
+      },
+      "properties": {
+        "image": "1107885013040491_1537774514835.jpg",
+        "image_id": "1107885013040491",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7692,
+            "min_confidence": 0.761,
+            "max_confidence": 0.7774,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.190699402577,
+          46.05797178781
+        ]
+      },
+      "properties": {
+        "image": "2166172610256974_1578561580094.jpg",
+        "image_id": "2166172610256974",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7587,
+            "min_confidence": 0.7587,
+            "max_confidence": 0.7587,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189645248988,
+          46.057738431579
+        ]
+      },
+      "properties": {
+        "image": "1067023043821802_1537774512669.jpg",
+        "image_id": "1067023043821802",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8895,
+            "min_confidence": 0.8895,
+            "max_confidence": 0.8895,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189585813333,
+          46.05751876
+        ]
+      },
+      "properties": {
+        "image": "460548255022544_1537774510872.jpg",
+        "image_id": "460548255022544",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7614,
+            "min_confidence": 0.7614,
+            "max_confidence": 0.7614,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.7734,
+            "min_confidence": 0.7734,
+            "max_confidence": 0.7734,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189445853313,
+          46.057218783434
+        ]
+      },
+      "properties": {
+        "image": "794898014797660_1537774508674.jpg",
+        "image_id": "794898014797660",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.7867,
+            "min_confidence": 0.7867,
+            "max_confidence": 0.7867,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.191529901246,
+          46.056535303738
+        ]
+      },
+      "properties": {
+        "image": "3736697343123377_1578561568299.jpg",
+        "image_id": "3736697343123377",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.77,
+            "min_confidence": 0.77,
+            "max_confidence": 0.77,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189679119701,
+          46.057983294627
+        ]
+      },
+      "properties": {
+        "image": "1107885013040491_1537774514835.jpg",
+        "image_id": "1107885013040491",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7692,
+            "min_confidence": 0.761,
+            "max_confidence": 0.7774,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.160343567777,
+          40.3475979905
+        ]
+      },
+      "properties": {
+        "image": "269785381815627_1633275148807.jpg",
+        "image_id": "269785381815627",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8499,
+            "min_confidence": 0.7983,
+            "max_confidence": 0.9014,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.16320655826,
+          40.350003787488
+        ]
+      },
+      "properties": {
+        "image": "1262193670911521_1633275195018.jpg",
+        "image_id": "1262193670911521",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8132,
+            "min_confidence": 0.7426,
+            "max_confidence": 0.8837,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.1614995,
+          40.349718300003
+        ]
+      },
+      "properties": {
+        "image": "170026631613845_1574001935000.jpg",
+        "image_id": "170026631613845",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.8732,
+            "min_confidence": 0.8732,
+            "max_confidence": 0.8732,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.162520981587,
+          40.348937319125
+        ]
+      },
+      "properties": {
+        "image": "109272288191037_1633275181717.jpg",
+        "image_id": "109272288191037",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7667,
+            "min_confidence": 0.7667,
+            "max_confidence": 0.7667,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.161841590268,
+          40.349379030884
+        ]
+      },
+      "properties": {
+        "image": "3009352036049846_1635756004821.jpg",
+        "image_id": "3009352036049846",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.9885,
+            "min_confidence": 0.9885,
+            "max_confidence": 0.9885,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.161150636382,
+          40.348335877642
+        ]
+      },
+      "properties": {
+        "image": "239974621431207_1633275164112.jpg",
+        "image_id": "239974621431207",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8902,
+            "min_confidence": 0.8902,
+            "max_confidence": 0.8902,
+            "count": 1
+          },
+          {
+            "label": 2,
+            "avg_confidence": 0.7602,
+            "min_confidence": 0.7602,
+            "max_confidence": 0.7602,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.159445144383,
+          40.348357766851
+        ]
+      },
+      "properties": {
+        "image": "383622213263221_1633275137036.jpg",
+        "image_id": "383622213263221",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.8121,
+            "min_confidence": 0.8121,
+            "max_confidence": 0.8121,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.160970868411,
+          40.348135984501
+        ]
+      },
+      "properties": {
+        "image": "409936384104847_1633275161876.jpg",
+        "image_id": "409936384104847",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.7641,
+            "min_confidence": 0.7641,
+            "max_confidence": 0.7641,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.157433876726,
+          40.348407772387
+        ]
+      },
+      "properties": {
+        "image": "627454578633988_1633275113947.jpg",
+        "image_id": "627454578633988",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.9554,
+            "min_confidence": 0.9554,
+            "max_confidence": 0.9554,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.8414,
+            "min_confidence": 0.8414,
+            "max_confidence": 0.8414,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.16272113993,
+          40.349262110642
+        ]
+      },
+      "properties": {
+        "image": "1000537050519988_1633275186055.jpg",
+        "image_id": "1000537050519988",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8713,
+            "min_confidence": 0.8414,
+            "max_confidence": 0.9013,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.159099329708,
+          40.348827589942
+        ]
+      },
+      "properties": {
+        "image": "390728729344737_1633275129791.jpg",
+        "image_id": "390728729344737",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7795,
+            "min_confidence": 0.7509,
+            "max_confidence": 0.8081,
+            "count": 2
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.7941,
+            "min_confidence": 0.755,
+            "max_confidence": 0.8332,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.161490331321,
+          40.348660655283
+        ]
+      },
+      "properties": {
+        "image": "901924380738437_1633275168160.jpg",
+        "image_id": "901924380738437",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7607,
+            "min_confidence": 0.7607,
+            "max_confidence": 0.7607,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.7601,
+            "min_confidence": 0.7601,
+            "max_confidence": 0.7601,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.15966797056,
+          40.347968019884
+        ]
+      },
+      "properties": {
+        "image": "1475659272802816_1633275141936.jpg",
+        "image_id": "1475659272802816",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8019,
+            "min_confidence": 0.8019,
+            "max_confidence": 0.8019,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.159149317137,
+          40.348780069456
+        ]
+      },
+      "properties": {
+        "image": "1540276352987393_1633275130789.jpg",
+        "image_id": "1540276352987393",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8289,
+            "min_confidence": 0.8203,
+            "max_confidence": 0.8374,
+            "count": 2
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.7856,
+            "min_confidence": 0.7497,
+            "max_confidence": 0.8214,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.16025592848,
+          40.347640737832
+        ]
+      },
+      "properties": {
+        "image": "593998861880259_1633275147776.jpg",
+        "image_id": "593998861880259",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8622,
+            "min_confidence": 0.8622,
+            "max_confidence": 0.8622,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.159236921373,
+          40.348657517698
+        ]
+      },
+      "properties": {
+        "image": "270401154952307_1633275132911.jpg",
+        "image_id": "270401154952307",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8441,
+            "min_confidence": 0.8441,
+            "max_confidence": 0.8441,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.7902,
+            "min_confidence": 0.7466,
+            "max_confidence": 0.8647,
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.162571013968,
+          40.349014651619
+        ]
+      },
+      "properties": {
+        "image": "2729712147322262_1633275182724.jpg",
+        "image_id": "2729712147322262",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8359,
+            "min_confidence": 0.8359,
+            "max_confidence": 0.8359,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.160642155104,
+          40.348029428246
+        ]
+      },
+      "properties": {
+        "image": "1254417191715928_1635756024132.jpg",
+        "image_id": "1254417191715928",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7561,
+            "min_confidence": 0.7561,
+            "max_confidence": 0.7561,
+            "count": 1
+          },
+          {
+            "label": 2,
+            "avg_confidence": 0.8967,
+            "min_confidence": 0.8967,
+            "max_confidence": 0.8967,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.16313443617,
+          40.349898475532
+        ]
+      },
+      "properties": {
+        "image": "614294769619810_1633275193809.jpg",
+        "image_id": "614294769619810",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.784,
+            "min_confidence": 0.784,
+            "max_confidence": 0.784,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.159605305676,
+          40.348040397162
+        ]
+      },
+      "properties": {
+        "image": "399913044989041_1633275140892.jpg",
+        "image_id": "399913044989041",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8584,
+            "min_confidence": 0.8584,
+            "max_confidence": 0.8584,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.159791260883,
+          40.347302955731
+        ]
+      },
+      "properties": {
+        "image": "2977345722489094_1635756044902.jpg",
+        "image_id": "2977345722489094",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7806,
+            "min_confidence": 0.7806,
+            "max_confidence": 0.7806,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.160103218342,
+          40.347725382487
+        ]
+      },
+      "properties": {
+        "image": "223808543177658_1635756034070.jpg",
+        "image_id": "223808543177658",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.78,
+            "min_confidence": 0.78,
+            "max_confidence": 0.78,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.160821699999,
+          40.349478699999
+        ]
+      },
+      "properties": {
+        "image": "1202617493520796_1574001943012.jpg",
+        "image_id": "1202617493520796",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7516,
+            "min_confidence": 0.7516,
+            "max_confidence": 0.7516,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.16243279924,
+          40.348811212167
+        ]
+      },
+      "properties": {
+        "image": "594293798261315_1633275179817.jpg",
+        "image_id": "594293798261315",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.9241,
+            "min_confidence": 0.9241,
+            "max_confidence": 0.9241,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.162023100002,
+          40.349883
+        ]
+      },
+      "properties": {
+        "image": "467588997864249_1574001928004.jpg",
+        "image_id": "467588997864249",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.847,
+            "min_confidence": 0.847,
+            "max_confidence": 0.847,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.157822903522,
+          40.345237523372
+        ]
+      },
+      "properties": {
+        "image": "425925965923738_1635756080866.jpg",
+        "image_id": "425925965923738",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8307,
+            "min_confidence": 0.8307,
+            "max_confidence": 0.8307,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.160677,
+          40.349430899998
+        ]
+      },
+      "properties": {
+        "image": "1174803779657602_1574001945002.jpg",
+        "image_id": "1174803779657602",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.8609,
+            "min_confidence": 0.8081,
+            "max_confidence": 0.9137,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.159478675172,
+          40.348290697931
+        ]
+      },
+      "properties": {
+        "image": "614701383030733_1633275137770.jpg",
+        "image_id": "614701383030733",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7774,
+            "min_confidence": 0.7774,
+            "max_confidence": 0.7774,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.159052528082,
+          40.348858162329
+        ]
+      },
+      "properties": {
+        "image": "571377400652029_1633275129002.jpg",
+        "image_id": "571377400652029",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.822,
+            "min_confidence": 0.7922,
+            "max_confidence": 0.8676,
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.159194899151,
+          40.348719128774
+        ]
+      },
+      "properties": {
+        "image": "563628291422942_1633275131893.jpg",
+        "image_id": "563628291422942",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8089,
+            "min_confidence": 0.7674,
+            "max_confidence": 0.8623,
+            "count": 4
+          },
+          {
+            "label": 2,
+            "avg_confidence": 0.7446,
+            "min_confidence": 0.7446,
+            "max_confidence": 0.7446,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.159217111845,
+          40.346638418565
+        ]
+      },
+      "properties": {
+        "image": "471890304135711_1635756056852.jpg",
+        "image_id": "471890304135711",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.8028,
+            "min_confidence": 0.7816,
+            "max_confidence": 0.8241,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.162635221123,
+          40.34911774824
+        ]
+      },
+      "properties": {
+        "image": "382968880033994_1633275184024.jpg",
+        "image_id": "382968880033994",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8317,
+            "min_confidence": 0.8219,
+            "max_confidence": 0.8416,
+            "count": 2
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.8039,
+            "min_confidence": 0.8039,
+            "max_confidence": 0.8039,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.162811868626,
+          40.349412574503
+        ]
+      },
+      "properties": {
+        "image": "626604958725615_1633275188083.jpg",
+        "image_id": "626604958725615",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7846,
+            "min_confidence": 0.7846,
+            "max_confidence": 0.7846,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.16042,
+          40.349590900003
+        ]
+      },
+      "properties": {
+        "image": "307457084122360_1574001952021.jpg",
+        "image_id": "307457084122360",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7494,
+            "min_confidence": 0.7494,
+            "max_confidence": 0.7494,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.161135541061,
+          40.348561125933
+        ]
+      },
+      "properties": {
+        "image": "1984971724997211_1635756018138.jpg",
+        "image_id": "1984971724997211",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7829,
+            "min_confidence": 0.7829,
+            "max_confidence": 0.7829,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.160468700001,
+          40.3494986
+        ]
+      },
+      "properties": {
+        "image": "752772375401889_1574001949098.jpg",
+        "image_id": "752772375401889",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.7702,
+            "min_confidence": 0.7702,
+            "max_confidence": 0.7702,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.160955033541,
+          40.348381005711
+        ]
+      },
+      "properties": {
+        "image": "620711712292202_1635756020251.jpg",
+        "image_id": "620711712292202",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.7844,
+            "min_confidence": 0.7844,
+            "max_confidence": 0.7844,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.161559398113,
+          40.348692392453
+        ]
+      },
+      "properties": {
+        "image": "571023407502747_1633275168901.jpg",
+        "image_id": "571023407502747",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.7468,
+            "min_confidence": 0.7468,
+            "max_confidence": 0.7468,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.161227439817,
+          40.348638940459
+        ]
+      },
+      "properties": {
+        "image": "423518412684200_1635756017033.jpg",
+        "image_id": "423518412684200",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.891,
+            "min_confidence": 0.891,
+            "max_confidence": 0.891,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.160254864286,
+          40.347799102679
+        ]
+      },
+      "properties": {
+        "image": "619389149196355_1635756028891.jpg",
+        "image_id": "619389149196355",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7919,
+            "min_confidence": 0.7919,
+            "max_confidence": 0.7919,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.163253074089,
+          40.350072194534
+        ]
+      },
+      "properties": {
+        "image": "351187886464438_1633275195785.jpg",
+        "image_id": "351187886464438",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7808,
+            "min_confidence": 0.7808,
+            "max_confidence": 0.7808,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.159504523185,
+          40.346982166734
+        ]
+      },
+      "properties": {
+        "image": "473859130554207_1635756051073.jpg",
+        "image_id": "473859130554207",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.8691,
+            "min_confidence": 0.8646,
+            "max_confidence": 0.8737,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.1597002576,
+          40.3471966808
+        ]
+      },
+      "properties": {
+        "image": "3147637958848233_1635756046985.jpg",
+        "image_id": "3147637958848233",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.9138,
+            "min_confidence": 0.8513,
+            "max_confidence": 0.9762,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.161814246429,
+          40.349067762202
+        ]
+      },
+      "properties": {
+        "image": "247753067372386_1635756008815.jpg",
+        "image_id": "247753067372386",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.8814,
+            "min_confidence": 0.7899,
+            "max_confidence": 0.9729,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.161078749415,
+          40.348508261988
+        ]
+      },
+      "properties": {
+        "image": "1205286359963810_1635756018801.jpg",
+        "image_id": "1205286359963810",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7465,
+            "min_confidence": 0.7465,
+            "max_confidence": 0.7465,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.8103,
+            "min_confidence": 0.7773,
+            "max_confidence": 0.829,
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.162045818483,
+          40.348744801659
+        ]
+      },
+      "properties": {
+        "image": "591269728732948_1633275173789.jpg",
+        "image_id": "591269728732948",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.847,
+            "min_confidence": 0.847,
+            "max_confidence": 0.847,
+            "count": 1
+          },
+          {
+            "label": 2,
+            "avg_confidence": 0.935,
+            "min_confidence": 0.935,
+            "max_confidence": 0.935,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.7831,
+            "min_confidence": 0.7831,
+            "max_confidence": 0.7831,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.162953348344,
+          40.349635962914
+        ]
+      },
+      "properties": {
+        "image": "397101372022849_1633275190726.jpg",
+        "image_id": "397101372022849",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8131,
+            "min_confidence": 0.7802,
+            "max_confidence": 0.8459,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.161827430541,
+          40.349131573277
+        ]
+      },
+      "properties": {
+        "image": "608846653593242_1635756007910.jpg",
+        "image_id": "608846653593242",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7454,
+            "min_confidence": 0.7454,
+            "max_confidence": 0.7454,
+            "count": 1
+          },
+          {
+            "label": 2,
+            "avg_confidence": 0.8439,
+            "min_confidence": 0.8439,
+            "max_confidence": 0.8439,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.161815800003,
+          40.3498035
+        ]
+      },
+      "properties": {
+        "image": "311764683784174_1574001931006.jpg",
+        "image_id": "311764683784174",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.9077,
+            "min_confidence": 0.9077,
+            "max_confidence": 0.9077,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.16220635722,
+          40.348715688087
+        ]
+      },
+      "properties": {
+        "image": "2078925038951057_1633275175965.jpg",
+        "image_id": "2078925038951057",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8849,
+            "min_confidence": 0.826,
+            "max_confidence": 0.9395,
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.160359099998,
+          40.3497055
+        ]
+      },
+      "properties": {
+        "image": "220647616532375_1574001954005.jpg",
+        "image_id": "220647616532375",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.8475,
+            "min_confidence": 0.8475,
+            "max_confidence": 0.8475,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.163074098044,
+          40.349810415995
+        ]
+      },
+      "properties": {
+        "image": "1555262861481876_1633275192809.jpg",
+        "image_id": "1555262861481876",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7645,
+            "min_confidence": 0.7645,
+            "max_confidence": 0.7645,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.8812,
+            "min_confidence": 0.88,
+            "max_confidence": 0.8825,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.161845939338,
+          40.349599990944
+        ]
+      },
+      "properties": {
+        "image": "250279173785837_1635756002051.jpg",
+        "image_id": "250279173785837",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7496,
+            "min_confidence": 0.7496,
+            "max_confidence": 0.7496,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.159948842775,
+          40.347788956936
+        ]
+      },
+      "properties": {
+        "image": "570097754300683_1633275144867.jpg",
+        "image_id": "570097754300683",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.824,
+            "min_confidence": 0.8226,
+            "max_confidence": 0.8254,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.160197800002,
+          40.34998
+        ]
+      },
+      "properties": {
+        "image": "745954156084721_1574001958008.jpg",
+        "image_id": "745954156084721",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7426,
+            "min_confidence": 0.7426,
+            "max_confidence": 0.7426,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.160711628261,
+          40.347721367391
+        ]
+      },
+      "properties": {
+        "image": "1604078699938441_1633275156801.jpg",
+        "image_id": "1604078699938441",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7827,
+            "min_confidence": 0.7827,
+            "max_confidence": 0.7827,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.160599066634,
+          40.347986950594
+        ]
+      },
+      "properties": {
+        "image": "2573545089455865_1635756024694.jpg",
+        "image_id": "2573545089455865",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.751,
+            "min_confidence": 0.751,
+            "max_confidence": 0.751,
+            "count": 1
+          },
+          {
+            "label": 2,
+            "avg_confidence": 0.936,
+            "min_confidence": 0.936,
+            "max_confidence": 0.936,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.159336989264,
+          40.348524002187
+        ]
+      },
+      "properties": {
+        "image": "452975946069028_1633275134788.jpg",
+        "image_id": "452975946069028",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8052,
+            "min_confidence": 0.8052,
+            "max_confidence": 0.8052,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.159841446137,
+          40.347846416349
+        ]
+      },
+      "properties": {
+        "image": "2233478166792649_1633275143858.jpg",
+        "image_id": "2233478166792649",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.8111,
+            "min_confidence": 0.8111,
+            "max_confidence": 0.8111,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.160170212954,
+          40.347681953091
+        ]
+      },
+      "properties": {
+        "image": "396402778631209_1633275146925.jpg",
+        "image_id": "396402778631209",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8055,
+            "min_confidence": 0.8055,
+            "max_confidence": 0.8055,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.1592714,
+          40.346698946029
+        ]
+      },
+      "properties": {
+        "image": "113919881086265_1635756055837.jpg",
+        "image_id": "113919881086265",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7878,
+            "min_confidence": 0.7878,
+            "max_confidence": 0.7878,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.159753640505,
+          40.347257968467
+        ]
+      },
+      "properties": {
+        "image": "439643267597937_1635756045831.jpg",
+        "image_id": "439643267597937",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.8194,
+            "min_confidence": 0.8014,
+            "max_confidence": 0.8375,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.162163299663,
+          40.349967899999
+        ]
+      },
+      "properties": {
+        "image": "1398851970499665_1574001926011.jpg",
+        "image_id": "1398851970499665",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.8568,
+            "min_confidence": 0.8568,
+            "max_confidence": 0.8568,
             "count": 1
           }
         ]
@@ -128,6 +2163,82 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          13.189645248988,
+          46.057738431579
+        ]
+      },
+      "properties": {
+        "image": "1067023043821802_1537774512669.jpg",
+        "image_id": "1067023043821802",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8895,
+            "min_confidence": 0.8895,
+            "max_confidence": 0.8895,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189585813333,
+          46.05751876
+        ]
+      },
+      "properties": {
+        "image": "460548255022544_1537774510872.jpg",
+        "image_id": "460548255022544",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7614,
+            "min_confidence": 0.7614,
+            "max_confidence": 0.7614,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.7734,
+            "min_confidence": 0.7734,
+            "max_confidence": 0.7734,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189445853313,
+          46.057218783434
+        ]
+      },
+      "properties": {
+        "image": "794898014797660_1537774508674.jpg",
+        "image_id": "794898014797660",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.7867,
+            "min_confidence": 0.7867,
+            "max_confidence": 0.7867,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           13.189679119701,
           46.057983294627
         ]
@@ -145,20 +2256,1019 @@
           }
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.190699402577,
+          46.05797178781
+        ]
+      },
+      "properties": {
+        "image": "2166172610256974_1578561580094.jpg",
+        "image_id": "2166172610256974",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7587,
+            "min_confidence": 0.7587,
+            "max_confidence": 0.7587,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189645248988,
+          46.057738431579
+        ]
+      },
+      "properties": {
+        "image": "1067023043821802_1537774512669.jpg",
+        "image_id": "1067023043821802",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8895,
+            "min_confidence": 0.8895,
+            "max_confidence": 0.8895,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189585813333,
+          46.05751876
+        ]
+      },
+      "properties": {
+        "image": "460548255022544_1537774510872.jpg",
+        "image_id": "460548255022544",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7614,
+            "min_confidence": 0.7614,
+            "max_confidence": 0.7614,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.7734,
+            "min_confidence": 0.7734,
+            "max_confidence": 0.7734,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189445853313,
+          46.057218783434
+        ]
+      },
+      "properties": {
+        "image": "794898014797660_1537774508674.jpg",
+        "image_id": "794898014797660",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.7867,
+            "min_confidence": 0.7867,
+            "max_confidence": 0.7867,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189679119701,
+          46.057983294627
+        ]
+      },
+      "properties": {
+        "image": "1107885013040491_1537774514835.jpg",
+        "image_id": "1107885013040491",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7692,
+            "min_confidence": 0.761,
+            "max_confidence": 0.7774,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.190699402577,
+          46.05797178781
+        ]
+      },
+      "properties": {
+        "image": "2166172610256974_1578561580094.jpg",
+        "image_id": "2166172610256974",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7587,
+            "min_confidence": 0.7587,
+            "max_confidence": 0.7587,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189645248988,
+          46.057738431579
+        ]
+      },
+      "properties": {
+        "image": "1067023043821802_1537774512669.jpg",
+        "image_id": "1067023043821802",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8895,
+            "min_confidence": 0.8895,
+            "max_confidence": 0.8895,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189585813333,
+          46.05751876
+        ]
+      },
+      "properties": {
+        "image": "460548255022544_1537774510872.jpg",
+        "image_id": "460548255022544",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7614,
+            "min_confidence": 0.7614,
+            "max_confidence": 0.7614,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.7734,
+            "min_confidence": 0.7734,
+            "max_confidence": 0.7734,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189445853313,
+          46.057218783434
+        ]
+      },
+      "properties": {
+        "image": "794898014797660_1537774508674.jpg",
+        "image_id": "794898014797660",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.7867,
+            "min_confidence": 0.7867,
+            "max_confidence": 0.7867,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189679119701,
+          46.057983294627
+        ]
+      },
+      "properties": {
+        "image": "1107885013040491_1537774514835.jpg",
+        "image_id": "1107885013040491",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7692,
+            "min_confidence": 0.761,
+            "max_confidence": 0.7774,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.190699402577,
+          46.05797178781
+        ]
+      },
+      "properties": {
+        "image": "2166172610256974_1578561580094.jpg",
+        "image_id": "2166172610256974",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7587,
+            "min_confidence": 0.7587,
+            "max_confidence": 0.7587,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189645248988,
+          46.057738431579
+        ]
+      },
+      "properties": {
+        "image": "1067023043821802_1537774512669.jpg",
+        "image_id": "1067023043821802",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8895,
+            "min_confidence": 0.8895,
+            "max_confidence": 0.8895,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189585813333,
+          46.05751876
+        ]
+      },
+      "properties": {
+        "image": "460548255022544_1537774510872.jpg",
+        "image_id": "460548255022544",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7614,
+            "min_confidence": 0.7614,
+            "max_confidence": 0.7614,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.7734,
+            "min_confidence": 0.7734,
+            "max_confidence": 0.7734,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189445853313,
+          46.057218783434
+        ]
+      },
+      "properties": {
+        "image": "794898014797660_1537774508674.jpg",
+        "image_id": "794898014797660",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.7867,
+            "min_confidence": 0.7867,
+            "max_confidence": 0.7867,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.191529901246,
+          46.056535303738
+        ]
+      },
+      "properties": {
+        "image": "3736697343123377_1578561568299.jpg",
+        "image_id": "3736697343123377",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.77,
+            "min_confidence": 0.77,
+            "max_confidence": 0.77,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189679119701,
+          46.057983294627
+        ]
+      },
+      "properties": {
+        "image": "1107885013040491_1537774514835.jpg",
+        "image_id": "1107885013040491",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7692,
+            "min_confidence": 0.761,
+            "max_confidence": 0.7774,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.190699402577,
+          46.05797178781
+        ]
+      },
+      "properties": {
+        "image": "2166172610256974_1578561580094.jpg",
+        "image_id": "2166172610256974",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7587,
+            "min_confidence": 0.7587,
+            "max_confidence": 0.7587,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189645248988,
+          46.057738431579
+        ]
+      },
+      "properties": {
+        "image": "1067023043821802_1537774512669.jpg",
+        "image_id": "1067023043821802",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8895,
+            "min_confidence": 0.8895,
+            "max_confidence": 0.8895,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189585813333,
+          46.05751876
+        ]
+      },
+      "properties": {
+        "image": "460548255022544_1537774510872.jpg",
+        "image_id": "460548255022544",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7614,
+            "min_confidence": 0.7614,
+            "max_confidence": 0.7614,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.7734,
+            "min_confidence": 0.7734,
+            "max_confidence": 0.7734,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189445853313,
+          46.057218783434
+        ]
+      },
+      "properties": {
+        "image": "794898014797660_1537774508674.jpg",
+        "image_id": "794898014797660",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.7867,
+            "min_confidence": 0.7867,
+            "max_confidence": 0.7867,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.191529901246,
+          46.056535303738
+        ]
+      },
+      "properties": {
+        "image": "3736697343123377_1578561568299.jpg",
+        "image_id": "3736697343123377",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.77,
+            "min_confidence": 0.77,
+            "max_confidence": 0.77,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189679119701,
+          46.057983294627
+        ]
+      },
+      "properties": {
+        "image": "1107885013040491_1537774514835.jpg",
+        "image_id": "1107885013040491",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7692,
+            "min_confidence": 0.761,
+            "max_confidence": 0.7774,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.190699402577,
+          46.05797178781
+        ]
+      },
+      "properties": {
+        "image": "2166172610256974_1578561580094.jpg",
+        "image_id": "2166172610256974",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7587,
+            "min_confidence": 0.7587,
+            "max_confidence": 0.7587,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189645248988,
+          46.057738431579
+        ]
+      },
+      "properties": {
+        "image": "1067023043821802_1537774512669.jpg",
+        "image_id": "1067023043821802",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8895,
+            "min_confidence": 0.8895,
+            "max_confidence": 0.8895,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189585813333,
+          46.05751876
+        ]
+      },
+      "properties": {
+        "image": "460548255022544_1537774510872.jpg",
+        "image_id": "460548255022544",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7614,
+            "min_confidence": 0.7614,
+            "max_confidence": 0.7614,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.7734,
+            "min_confidence": 0.7734,
+            "max_confidence": 0.7734,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189445853313,
+          46.057218783434
+        ]
+      },
+      "properties": {
+        "image": "794898014797660_1537774508674.jpg",
+        "image_id": "794898014797660",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.7867,
+            "min_confidence": 0.7867,
+            "max_confidence": 0.7867,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.191529901246,
+          46.056535303738
+        ]
+      },
+      "properties": {
+        "image": "3736697343123377_1578561568299.jpg",
+        "image_id": "3736697343123377",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.77,
+            "min_confidence": 0.77,
+            "max_confidence": 0.77,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189679119701,
+          46.057983294627
+        ]
+      },
+      "properties": {
+        "image": "1107885013040491_1537774514835.jpg",
+        "image_id": "1107885013040491",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7692,
+            "min_confidence": 0.761,
+            "max_confidence": 0.7774,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.190699402577,
+          46.05797178781
+        ]
+      },
+      "properties": {
+        "image": "2166172610256974_1578561580094.jpg",
+        "image_id": "2166172610256974",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7587,
+            "min_confidence": 0.7587,
+            "max_confidence": 0.7587,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189645248988,
+          46.057738431579
+        ]
+      },
+      "properties": {
+        "image": "1067023043821802_1537774512669.jpg",
+        "image_id": "1067023043821802",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8895,
+            "min_confidence": 0.8895,
+            "max_confidence": 0.8895,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189585813333,
+          46.05751876
+        ]
+      },
+      "properties": {
+        "image": "460548255022544_1537774510872.jpg",
+        "image_id": "460548255022544",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7614,
+            "min_confidence": 0.7614,
+            "max_confidence": 0.7614,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.7734,
+            "min_confidence": 0.7734,
+            "max_confidence": 0.7734,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189445853313,
+          46.057218783434
+        ]
+      },
+      "properties": {
+        "image": "794898014797660_1537774508674.jpg",
+        "image_id": "794898014797660",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.7867,
+            "min_confidence": 0.7867,
+            "max_confidence": 0.7867,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.191529901246,
+          46.056535303738
+        ]
+      },
+      "properties": {
+        "image": "3736697343123377_1578561568299.jpg",
+        "image_id": "3736697343123377",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.77,
+            "min_confidence": 0.77,
+            "max_confidence": 0.77,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189679119701,
+          46.057983294627
+        ]
+      },
+      "properties": {
+        "image": "1107885013040491_1537774514835.jpg",
+        "image_id": "1107885013040491",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7692,
+            "min_confidence": 0.761,
+            "max_confidence": 0.7774,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.190699402577,
+          46.05797178781
+        ]
+      },
+      "properties": {
+        "image": "2166172610256974_1578561580094.jpg",
+        "image_id": "2166172610256974",
+        "labels": [
+          {
+            "label": 2,
+            "avg_confidence": 0.7587,
+            "min_confidence": 0.7587,
+            "max_confidence": 0.7587,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189645248988,
+          46.057738431579
+        ]
+      },
+      "properties": {
+        "image": "1067023043821802_1537774512669.jpg",
+        "image_id": "1067023043821802",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.8895,
+            "min_confidence": 0.8895,
+            "max_confidence": 0.8895,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189585813333,
+          46.05751876
+        ]
+      },
+      "properties": {
+        "image": "460548255022544_1537774510872.jpg",
+        "image_id": "460548255022544",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7614,
+            "min_confidence": 0.7614,
+            "max_confidence": 0.7614,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.7734,
+            "min_confidence": 0.7734,
+            "max_confidence": 0.7734,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189445853313,
+          46.057218783434
+        ]
+      },
+      "properties": {
+        "image": "794898014797660_1537774508674.jpg",
+        "image_id": "794898014797660",
+        "labels": [
+          {
+            "label": 3,
+            "avg_confidence": 0.7867,
+            "min_confidence": 0.7867,
+            "max_confidence": 0.7867,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.191529901246,
+          46.056535303738
+        ]
+      },
+      "properties": {
+        "image": "3736697343123377_1578561568299.jpg",
+        "image_id": "3736697343123377",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.77,
+            "min_confidence": 0.77,
+            "max_confidence": 0.77,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.189679119701,
+          46.057983294627
+        ]
+      },
+      "properties": {
+        "image": "1107885013040491_1537774514835.jpg",
+        "image_id": "1107885013040491",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7692,
+            "min_confidence": 0.761,
+            "max_confidence": 0.7774,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.567608667715554,
+          48.14926328085988
+        ]
+      },
+      "properties": {
+        "image": "pothole_20251130_093731_748.jpg",
+        "image_id": "20251130_093731_748",
+        "labels": [
+          {
+            "label": 1,
+            "avg_confidence": 0.7614,
+            "min_confidence": 0.7614,
+            "max_confidence": 0.7614,
+            "count": 1
+          },
+          {
+            "label": 3,
+            "avg_confidence": 0.7734,
+            "min_confidence": 0.7734,
+            "max_confidence": 0.7734,
+            "count": 1
+          }
+        ]
+      }
     }
   ],
   "summary": {
-    "total_images": 6,
+    "total_images": 133,
     "unique_labels": [
       1,
       2,
       3
     ],
-    "total_detections": 8,
+    "total_detections": 202,
     "confidence_stats": {
-      "min": 0.7587,
-      "max": 0.8895,
-      "avg": 0.7848
+      "min": 0.7426,
+      "max": 0.9885,
+      "avg": 0.8047
     }
   }
 }
